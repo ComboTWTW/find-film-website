@@ -23,6 +23,7 @@ const App = () => {
             <Route path={'/movies'} element={<h1 className='text-white'>movies</h1>}/>
             <Route path={'/shows'} element={<h1 className='text-white'>shows</h1>}/>
             <Route path={'/people'} element={<h1 className='text-white'>people</h1>}/>
+            <Route path={'/about'} element={<h1 className='text-white'>about</h1>}/>
 
             <Route path={'*'} element={<h1>404 Not Found</h1>}/>
           </Routes>
