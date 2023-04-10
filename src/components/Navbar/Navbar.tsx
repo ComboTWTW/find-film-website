@@ -1,4 +1,4 @@
-import { navbarLogo, accountLogo, magnifier } from '../../assets/index'
+import { navbarLogo, accountLogo, magnifier, xMark } from '../../assets/index'
 import { NavLink } from 'react-router-dom'
 import { navbarLinks } from '../../constants'
 import { HamburgerBoring } from 'react-animated-burgers'
@@ -13,7 +13,9 @@ const Navbar = () => {
         submit: boolean;
     }
 
-    const [toggle, setToggle] = useState<boolean>(false);
+    const [toggleBurg, setToggleBurg] = useState<boolean>(false);
+    const [toggleMagni, setToggleMagni] = useState<boolean>(false);
+
     const [searchInput, setSearchInput] = useState<searchInput>({
         input: "",
         submit: false,
@@ -29,7 +31,7 @@ const Navbar = () => {
                 <div className="mobileNavbar flex flex-row justify-between items-center md:gap-4 lg:gap-10">  
                         {/* Burger for Mobile */}
                     <div className="sm:block lg:hidden mt-[12px] md:mt-[7px] ">
-                        <HamburgerBoring barColor='white' className="p-0" buttonWidth={30} isActive={toggle}  toggleButton={() => setToggle(!toggle)}/> 
+                        <HamburgerBoring barColor='white' className="p-0" buttonWidth={30} isActive={toggleBurg}  toggleButton={() => setToggleBurg(!toggleBurg)}/> 
                     </div>
                         {/* Logo */}
                     <NavLink reloadDocument to='/'>
@@ -45,7 +47,10 @@ const Navbar = () => {
                         })}
                     </ul>
                         {/* Magnifier for Mobile */}
-                    <img src={magnifier} alt="magnifier" className='block md:hidden max-w-[20px] h-auto'/>
+                    {!toggleMagni ?
+                        <img src={magnifier} onClick={() => setToggleMagni(true)} alt="magnifier" className='block md:hidden max-w-[20px] h-auto cursor-pointer'/>
+                    :  <img src={xMark} alt="close" onClick={() => setToggleMagni(false)} className='block md:hidden max-w-[20px]  cursor-pointer'/>
+                    }       
                     
                 </div>   
                     {/* SeacrhBar and Account Section for Desktop */}        
@@ -56,17 +61,17 @@ const Navbar = () => {
                 </div>
                   
                     {/* Medium Desktop Burger Menu */}           
-                <div className={`sm:hidden lg:hidden ${toggle ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center h-screen bg-darkLighter`}>
+                <div className={`sm:hidden lg:hidden ${toggleBurg ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center h-screen bg-darkLighter`}>
                     <ul className='flex flex-col gap-8 items-center'>
                         {navbarLinks.map((link) => {
                             return <NavLink reloadDocument to={link.path}><li className='poppins text-white text-lg hover:text-[#9dadbc] '>{link.title}</li></NavLink>
                         })}
                     </ul>
-                    <div className="bg-none top-0 h-screen w-screen left-[100%] absolute" onClick={() => setToggle(false)}></div>
+                    <div className="bg-none top-0 h-screen w-screen left-[100%] absolute" onClick={() => setToggleBurg(false)}></div>
                 </div>
 
                     {/* Mobile Burger Navbar */}
-                <div className={`md:hidden ${toggle ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter`}>
+                <div className={`md:hidden ${toggleBurg ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter z-50`}>
                     <ul className='flex flex-col gap-6 items-start ml-5'>
                         <a href="#" className='mb-7'>
                             <div className="flex flex-row justify-start items-center gap-2">
@@ -81,6 +86,10 @@ const Navbar = () => {
                     </ul>
                 </div>
 
+                {toggleMagni && 
+                    <div className="absolute top-[73px] md:hidden w-full">
+                        <SearchBar setSearchInput={setSearchInput}/>
+                    </div>}        
                 <AuthPopUp />
 
             </div>
