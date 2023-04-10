@@ -8,7 +8,18 @@ import AuthPopUp from './AuthPopUp'
 
 const Navbar = () => {
 
+    type searchInput = {
+        input: string;
+        submit: boolean;
+    }
+
     const [toggle, setToggle] = useState<boolean>(false);
+    const [searchInput, setSearchInput] = useState<searchInput>({
+        input: "",
+        submit: false,
+    });
+
+    console.log(searchInput)
 
 
     return (
@@ -39,13 +50,13 @@ const Navbar = () => {
                 </div>   
                     {/* SeacrhBar and Account Section for Desktop */}        
                 <div className="hidden md:flex items-center flex-row gap-6">
-                    <SearchBar />
+                    <SearchBar setSearchInput={setSearchInput}/>
 
                     <img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/> 
                 </div>
                   
-
-                <div className={`sm:hidden lg:hidden ${toggle ? 'md:flex left-0' : 'md:flex md:-left-[35%]'} duration-200 absolute  top-[67px] px-24 pt-14 flex justify-center h-screen bg-navbarBg`}>
+                    {/* Medium Desktop Burger Menu */}           
+                <div className={`sm:hidden lg:hidden ${toggle ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center h-screen bg-darkLighter`}>
                     <ul className='flex flex-col gap-8 items-center'>
                         {navbarLinks.map((link) => {
                             return <NavLink reloadDocument to={link.path}><li className='poppins text-white text-lg hover:text-[#9dadbc] '>{link.title}</li></NavLink>
@@ -54,14 +65,16 @@ const Navbar = () => {
                     <div className="bg-none top-0 h-screen w-screen left-[100%] absolute" onClick={() => setToggle(false)}></div>
                 </div>
 
-                <div className={`absolute md:hidden ${toggle ? 'top-[83px] left-0' : 'top-[83px] -left-[100vw]'} min-w-[100vw] h-screen duration-200 pt-10 pb-16  bg-navbarBg`}>
+                    {/* Mobile Burger Navbar */}
+                <div className={`md:hidden ${toggle ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter`}>
                     <ul className='flex flex-col gap-6 items-start ml-5'>
-                    <a href="#" className='mb-7'>
-                        <div className="flex flex-row justify-start items-center gap-2">
-                            <img src={accountLogo} alt="navbarLogo" className='max-w-[40px] h-auto'/> 
-                            <p className='poppins text-white text-lg'>Sign Up/Sign In</p>
-                        </div>
-                    </a>
+                        <a href="#" className='mb-7'>
+                            <div className="flex flex-row justify-start items-center gap-2">
+                                <img src={accountLogo} alt="navbarLogo" className='max-w-[40px] h-auto'/> 
+                                <p className='poppins text-white text-lg'>Sign Up/Sign In</p>
+                            </div>
+                        </a>
+
                         {navbarLinks.map((link) => {
                             return <NavLink reloadDocument to={link.path}><li className='poppins text-white text-lg hover:text-[#9dadbc] '>{link.title}</li></NavLink>
                         })}
