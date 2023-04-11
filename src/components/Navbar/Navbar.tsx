@@ -15,13 +15,14 @@ const Navbar = () => {
 
     const [toggleBurg, setToggleBurg] = useState<boolean>(false);
     const [toggleMagni, setToggleMagni] = useState<boolean>(false);
+    const [authToggle, setAuthToggle] = useState<boolean>(false);
 
     const [searchInput, setSearchInput] = useState<searchInput>({
         input: "",
         submit: false,
     });
 
-    console.log(searchInput)
+    console.log("Search input is " + searchInput)
 
 
     return (
@@ -54,10 +55,15 @@ const Navbar = () => {
                     
                 </div>   
                     {/* SeacrhBar and Account Section for Desktop */}        
-                <div className="hidden md:flex items-center flex-row gap-6">
+                <div className="hidden relative md:flex items-center flex-row gap-6">
                     <SearchBar setSearchInput={setSearchInput}/>
 
-                    <img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/> 
+                    <button onBlur={() => setAuthToggle(false)} onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
+
+                        {/* Auth PopUp Desktop*/}
+                    <div className={`hidden md:${authToggle ? 'block ' : 'hidden'} md:absolute top-12 right-0`}>
+                        <AuthPopUp />
+                    </div>
                 </div>
                   
                     {/* Medium Desktop Burger Menu */}           
@@ -74,10 +80,7 @@ const Navbar = () => {
                 <div className={`md:hidden ${toggleBurg ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter z-50`}>
                     <ul className='flex flex-col gap-6 items-start ml-5'>
                         <a href="#" className='mb-7'>
-                            <div className="flex flex-row justify-start items-center gap-2">
-                                <img src={accountLogo} alt="navbarLogo" className='max-w-[40px] h-auto'/> 
-                                <p className='poppins text-white text-lg'>Sign Up/Sign In</p>
-                            </div>
+                            <AuthPopUp />
                         </a>
 
                         {navbarLinks.map((link) => {
@@ -86,11 +89,13 @@ const Navbar = () => {
                     </ul>
                 </div>
 
+                    {/* Mobile SearchBar */}
                 {toggleMagni && 
                     <div className="absolute top-[73px] md:hidden w-full">
                         <SearchBar setSearchInput={setSearchInput}/>
-                    </div>}        
-                <AuthPopUp />
+                    </div>
+                }    
+                        
 
             </div>
         </nav>
