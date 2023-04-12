@@ -2,9 +2,10 @@ import { navbarLogo, accountLogo, magnifier, xMark } from '../../assets/index'
 import { NavLink } from 'react-router-dom'
 import { navbarLinks } from '../../constants'
 import { HamburgerBoring } from 'react-animated-burgers'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import SearchBar from './SearchBar'
 import AuthPopUp from './AuthPopUp'
+import { useOnClickOutside } from 'usehooks-ts'
 
 const Navbar = () => {
 
@@ -17,12 +18,15 @@ const Navbar = () => {
     const [toggleMagni, setToggleMagni] = useState<boolean>(false);
     const [authToggle, setAuthToggle] = useState<boolean>(false);
 
+    const authWindow = useRef<any>();
+    useOnClickOutside(authWindow, () => setAuthToggle(false))
+
     const [searchInput, setSearchInput] = useState<searchInput>({
         input: "",
         submit: false,
     });
 
-    console.log("Search input is " + searchInput)
+
 
 
     return (
@@ -57,13 +61,14 @@ const Navbar = () => {
                     {/* SeacrhBar and Account Section for Desktop */}        
                 <div className="hidden relative md:flex items-center flex-row gap-6">
                     <SearchBar setSearchInput={setSearchInput}/>
+                    <span ref={authWindow} className="flex items-center">
+                        <button onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
 
-                    <button onBlur={() => setAuthToggle(false)} onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
-
-                        {/* Auth PopUp Desktop*/}
-                    <div className={`hidden md:${authToggle ? 'block ' : 'hidden'} md:absolute top-12 right-0`}>
-                        <AuthPopUp />
-                    </div>
+                            {/* Auth PopUp Desktop*/}
+                        <div className={`md:${authToggle ? 'block ' : 'hidden'} md:absolute top-12 right-0`}>
+                            <AuthPopUp />
+                        </div>
+                    </span>
                 </div>
                   
                     {/* Medium Desktop Burger Menu */}           
