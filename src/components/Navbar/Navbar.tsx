@@ -7,6 +7,8 @@ import SearchBar from './SearchBar'
 import AuthPopUp from './AuthPopUp'
 import { useOnClickOutside } from 'usehooks-ts'
 
+
+
 const Navbar = () => {
 
     type searchInput = {

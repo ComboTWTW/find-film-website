@@ -21,7 +21,7 @@ const SearchBar = ({setSearchInput}:Props) => {
     }
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
         <img src={magnifier} alt="magnifier" className='absolute max-w-[18px] h-auto left-3 top-[13px] md:top-[9px]'/>
         <img src={xMark} alt="xMark" onClick={() => setInputValue("")} className={`${inputValue != "" ? 'absolute' : 'hidden'} cursor-pointer max-w-[14px] h-auto right-3 top-[15px] md:top-[11px]`}/>
         <form onSubmit={(e) => afterSubmission(e)}>

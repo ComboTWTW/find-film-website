@@ -1,6 +1,8 @@
 import { BrowserRouter  as Router, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
+import Auth from './pages/Auth'
 
 const App = () => {
 
@@ -13,6 +15,14 @@ const App = () => {
     },
   })
 
+  const [authType, setAuthType] = useState<string>("")
+
+  enum loginTypes {
+    signup = 'signup',
+    login = 'login',
+  };
+
+
   return (
     <QueryClientProvider client={queryClient} >
     <Router >
@@ -24,6 +34,8 @@ const App = () => {
             <Route path={'/shows'} element={<h1 className='text-white'>shows</h1>}/>
             <Route path={'/people'} element={<h1 className='text-white'>people</h1>}/>
             <Route path={'/about'} element={<h1 className='text-white'>about</h1>}/>
+            <Route path={'/login'} element={<Auth loginType={loginTypes.login}/>}/>
+            <Route path={'/signup'} element={<Auth loginType={loginTypes.signup}/>}/>
 
             <Route path={'*'} element={<h1>404 Not Found</h1>}/>
           </Routes>
