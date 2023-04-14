@@ -67,7 +67,7 @@ const Navbar = () => {
                         <button onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
 
                             {/* Auth PopUp Desktop*/}
-                        <div className={`md:${authToggle ? 'block ' : 'hidden'} md:absolute top-12 right-0`}>
+                        <div className={`md:${authToggle ? 'block ' : 'hidden'} z-50 md:absolute top-12 right-0`}>
                             <AuthPopUp />
                         </div>
                     </span>
