@@ -20,3 +20,7 @@ export const navbarLinks = [
         path: '/about',
     },
 ]
+
+export const styles = {
+    authInput: 'bg-transparent rounded-[5px] outline-none text-white poppins px-2 h-14 bg-opacity-30 borderStyle hover:duration-150 focus:bg-darkLighter focus:duration-150 focus:bg-opacity-50',
+}
