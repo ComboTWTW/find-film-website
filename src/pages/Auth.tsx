@@ -1,12 +1,23 @@
 import { googleLogo } from "../assets";
 import { styles } from "../constants";
-
+import {useState} from 'react'
+import { auth } from '../config/firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 interface Props {
     loginType: string;
 }  
 
+interface authData  {
+  username?: string;
+  email: string;
+  password: string;
+}
+
 const Auth = ({loginType}:Props) => {
+
+  const [authData, setAuthData] = useState<authData | null>(null)
+
   return (
     <div className='w-full relative flex justify-center'>
         <div className="max-w-[1300px] flex flex-col text-center items-center mt-12 px-4 md:px-0">
@@ -24,7 +35,7 @@ const Auth = ({loginType}:Props) => {
 
             <ul className="flex flex-col gap-2 mt-10">
               <input placeholder='First Name' type="text" className={`${loginType === 'login' && 'hidden'} ${styles.authInput}`}/>
-              <input placeholder='Email' type="text" className={` ${styles.authInput}`}/>
+              <input placeholder='Email' type="email" className={` ${styles.authInput}`}/>
               <input placeholder='Password' type="password" className={` ${styles.authInput}`}/>
             </ul>
 

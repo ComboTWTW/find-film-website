@@ -1,6 +1,7 @@
 import { magnifier, xMark } from '../../assets/index'
 import { useState } from 'react'
 
+
 interface Props {
     setSearchInput: Function;
 }
@@ -21,7 +22,7 @@ const SearchBar = ({setSearchInput}:Props) => {
     }
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-30">
         <img src={magnifier} alt="magnifier" className='absolute max-w-[18px] h-auto left-3 top-[13px] md:top-[9px]'/>
         <img src={xMark} alt="xMark" onClick={() => setInputValue("")} className={`${inputValue != "" ? 'absolute' : 'hidden'} cursor-pointer max-w-[14px] h-auto right-3 top-[15px] md:top-[11px]`}/>
         <form onSubmit={(e) => afterSubmission(e)}>
