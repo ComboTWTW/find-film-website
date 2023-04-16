@@ -2,7 +2,7 @@ import { BrowserRouter  as Router, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
-import Auth from './pages/Auth'
+import Auth from './pages/Auth/Auth'
 
 const App = () => {
 
