@@ -2,8 +2,11 @@ import { googleLogo } from "../../assets";
 import { styles } from "../../constants";
 import {useState} from 'react'
 import { auth } from '../../config/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { authDataValidation } from "../../functions/authDataValidation";
+import { signUp } from "../../functions/signUp";
+import { redirect } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile, onAuthStateChanged  } from 'firebase/auth'
+
 
 interface Props {
     loginType: string;
@@ -30,24 +33,23 @@ const Auth = ({loginType}:Props) => {
     setAuthData({...authData, [inputType]: e.target.value})
   }
 
-  const authFunc = (authData:authData) => {
 
-    const signUp = async () => {
-      try {
-        await createUserWithEmailAndPassword(auth, authData.email, authData.password)
-      } catch(err) {
-        console.error(err)
-      }
-    }
+
+  const authFunc = async (authData:authData) => {
 
     if(authData.loginType === 'signup' && authDataValidation(authData) === true) {
-      console.log("we're gonna have fun")
+      console.log(signUp(authData));
+      console.log('before');
     } else {
-      const err = authDataValidation(authData)
+      console.log(authDataValidation(authData))
     }
+
+
   }
+
   
-  console.log(authData);
+
+ 
 
   return (
     <div className='w-full relative flex justify-center'>
@@ -70,8 +72,10 @@ const Auth = ({loginType}:Props) => {
               <input id='password' onChange={(e) => handleAuthChange(e)} placeholder='Password' type="password" className={` ${styles.authInput}`}/>
             </ul>
 
-            <button onClick={() => authFunc(authData)}className="poppins text-white text-xl bgGradient font-semibold rounded-full py-4 px-20 mt-10">{loginType === 'login' ? 'Sign In' : "Register"}</button>
+            <button onClick={() => authFunc(authData)} className="poppins text-white text-xl bgGradient font-semibold rounded-full py-4 px-20 mt-10">{loginType === 'login' ? 'Sign In' : "Register"}</button>
             <a href="" className={`${loginType === 'signup' && 'hidden'} poppins text-gray-500 text-sm mt-5`}>Forgot your password?</a>
+            
+            
 
         </div>
     </div>

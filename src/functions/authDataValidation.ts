@@ -6,22 +6,27 @@ interface authData  {
   }
 
 export const authDataValidation = (authData:authData) => {
-    if ((authData.password.length !== (0 && undefined) && authData.username.length !== (0 && undefined))) {
+    if ((authData.password.length !== undefined && authData.password.length >= 6 && authData.username.length !== (0 && undefined))) {
       const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
       if(emailRegex.test(authData.email) === true) {
         return true;
       } else {
-        const err = {
+        return {
             message: "Incorrect email!",
             status: false,
         }
       }
+    } else if (authData.password.length == undefined || authData.password.length <= 6) {
+      return {
+        message: "Password should be at least 6 characters!",
+        status: false,
+      };
     } else {
       return {
-        message: "Inputs shouldn't be empty",
+        message: "Username field shouldn't be epmty!",
         status: false,
-    };
+      };
     };
   
   }
