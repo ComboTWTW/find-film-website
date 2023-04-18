@@ -1,8 +1,6 @@
 import { auth } from '../config/firebase'
 import { createUserWithEmailAndPassword, updateProfile, onAuthStateChanged  } from 'firebase/auth'
 
-
-
 interface authData  {
     username: string;
     email: string;
@@ -10,26 +8,28 @@ interface authData  {
     loginType: string;
 }
 
-const user:any = auth.currentUser;
+    /* After user creation Instantly chagning the name to specified */
+const newName = (authData:authData):Promise<string> => {
 
-export const signUp = async (authData:authData) => {
-    try {
-      await createUserWithEmailAndPassword(auth, authData.email, authData.password);
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
+    return new Promise<string>((resolve) => {
+        onAuthStateChanged(auth, (user:any) => {
             updateProfile(user, {
                 displayName: authData.username
-            }).then(() => {
-                return new Promise(resolve => {
-                    console.log(auth.currentUser?.displayName + " is signed up");
-                    resolve('resolved');
-                }); 
-            }).catch((error) => {
-                console.error(error);
-            });
-        }
+            })
+            .then(() => resolve('resolved'))
+            .catch(err => console.error(err));
         });
-    } catch(err) {
-      console.error(err)
-    }
-  }
+    })
+
+}
+    /* Create new user and change their name */
+export const signUp = async (authData:authData) => {
+    try {
+
+        await createUserWithEmailAndPassword(auth, authData.email, authData.password); 
+        await newName(authData);
+    
+} catch(err) {
+    console.error(err)
+}
+}

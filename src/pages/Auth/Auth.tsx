@@ -1,11 +1,11 @@
 import { googleLogo } from "../../assets";
 import { styles } from "../../constants";
-import {useState} from 'react'
-import { auth } from '../../config/firebase'
+import {useState, useEffect} from 'react'
 import { authDataValidation } from "../../functions/authDataValidation";
 import { signUp } from "../../functions/signUp";
-import { redirect } from "react-router-dom";
-import { createUserWithEmailAndPassword, updateProfile, onAuthStateChanged  } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
+
+
 
 
 interface Props {
@@ -21,6 +21,12 @@ interface authData  {
 
 const Auth = ({loginType}:Props) => {
 
+  useEffect(() => {
+    if (window.location.search.includes('reloadDocument')) {
+      window.location.search = '?';
+      window.location.reload();
+    }
+  }, []);
   const [authData, setAuthData] = useState<authData>({
     username: '',
     email: '',
@@ -33,18 +39,17 @@ const Auth = ({loginType}:Props) => {
     setAuthData({...authData, [inputType]: e.target.value})
   }
 
-
-
+  const navigate = useNavigate()
   const authFunc = async (authData:authData) => {
-
+    
     if(authData.loginType === 'signup' && authDataValidation(authData) === true) {
-      console.log(signUp(authData));
-      console.log('before');
+      await signUp(authData);
+      window.location.href = '/';
     } else {
-      console.log(authDataValidation(authData))
+      console.log(authDataValidation(authData));
     }
 
-
+    
   }
 
   
@@ -74,7 +79,6 @@ const Auth = ({loginType}:Props) => {
 
             <button onClick={() => authFunc(authData)} className="poppins text-white text-xl bgGradient font-semibold rounded-full py-4 px-20 mt-10">{loginType === 'login' ? 'Sign In' : "Register"}</button>
             <a href="" className={`${loginType === 'signup' && 'hidden'} poppins text-gray-500 text-sm mt-5`}>Forgot your password?</a>
-            
             
 
         </div>
