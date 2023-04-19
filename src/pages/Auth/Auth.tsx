@@ -3,8 +3,8 @@ import { styles } from "../../constants";
 import {useState, useEffect} from 'react'
 import { authDataValidation } from "../../functions/authDataValidation";
 import { signUp } from "../../functions/signUp";
-import { useNavigate } from 'react-router-dom'
-
+import { signInWithPopup } from "firebase/auth";
+import { googleProvider, auth } from "../../config/firebase";
 
 
 
@@ -27,6 +27,7 @@ const Auth = ({loginType}:Props) => {
       window.location.reload();
     }
   }, []);
+
   const [authData, setAuthData] = useState<authData>({
     username: '',
     email: '',
@@ -39,16 +40,28 @@ const Auth = ({loginType}:Props) => {
     setAuthData({...authData, [inputType]: e.target.value})
   }
 
-  const navigate = useNavigate()
+  
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      window.location.href = '/';
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
   const authFunc = async (authData:authData) => {
     
-    if(authData.loginType === 'signup' && authDataValidation(authData) === true) {
-      await signUp(authData);
-      window.location.href = '/';
-    } else {
-      console.log(authDataValidation(authData));
+    try { 
+        if(authData.loginType === 'signup' && authDataValidation(authData) === true) {
+        await signUp(authData);
+        window.location.href = '/';
+        } else {
+          console.log(authDataValidation(authData));
+        }
+    } catch(error) {
+      console.error(error);
     }
-
     
   }
 
@@ -60,7 +73,8 @@ const Auth = ({loginType}:Props) => {
     <div className='w-full relative flex justify-center'>
         <div className="max-w-[1300px] flex flex-col text-center items-center mt-12 px-4 md:px-0">
             <h1 className='poppins text-white font-bold text-4xl'>{loginType === 'login' ? 'Welcome Back!' : "Let's get you set up"}</h1>
-            <button className='bg-white rounded-[5px] flex flex-row items-center justify-center gap-5 py-4 px-10 poppins font-semibold mt-10'><img src={googleLogo} alt="googleLogo" className="w-[20px] h-auto"/>{loginType === 'login' ? 'Sign In' : "Register"} via Google</button>
+            {/* Google Button */}
+            <button onClick={() => signInWithGoogle()} className='bg-white rounded-[5px] flex flex-row items-center justify-center gap-5 py-4 px-10 poppins font-semibold mt-10'><img src={googleLogo} alt="googleLogo" className="w-[20px] h-auto"/>{loginType === 'login' ? 'Sign In' : "Register"} via Google</button>
 
               {/* Or line */}
             <div className="flex justify-center items-center w-full mt-12">
