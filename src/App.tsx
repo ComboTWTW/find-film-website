@@ -1,8 +1,11 @@
-import { BrowserRouter  as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter  as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Auth from './pages/Auth/Auth'
+import Home from './pages/Home'
+import { auth } from "./config/firebase"
+import { onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
 
@@ -15,7 +18,6 @@ const App = () => {
     },
   })
 
-  const [authType, setAuthType] = useState<string>("")
 
   enum loginTypes {
     signup = 'signup',
@@ -23,19 +25,34 @@ const App = () => {
   };
 
 
+
+  const [isSigned, setIsSigned] = useState<boolean>(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          return
+        } else {
+          setIsSigned(false)
+        }
+      });
+}, [])
+
   return (
     <QueryClientProvider client={queryClient} >
     <Router >
       <div className='overflow-hidden bg-bgMain min-h-screen'>
         <Navbar />
           <Routes>
-            <Route path={'/'} element={<h1 className='text-white'>Main</h1>}/>
+            <Route path={'/'} element={<Home />}/>
             <Route path={'/movies'} element={<h1 className='text-white'>movies</h1>}/>
             <Route path={'/shows'} element={<h1 className='text-white'>shows</h1>}/>
             <Route path={'/people'} element={<h1 className='text-white'>people</h1>}/>
             <Route path={'/about'} element={<h1 className='text-white'>about</h1>}/>
-            <Route path={'/login'} element={<Auth loginType={loginTypes.login}/>}/>
-            <Route path={'/signup'} element={<Auth loginType={loginTypes.signup}/>}/>
+
+              {/* Private */}
+            <Route path={'/login'} element={isSigned ? <Navigate to="/" /> : <Auth loginType={loginTypes.login}/>}/>
+            <Route path={'/signup'} element={isSigned ? <Navigate to="/" /> : <Auth loginType={loginTypes.signup}/>}/>
 
             <Route path={'*'} element={<h1>404 Not Found</h1>}/>
           </Routes>
