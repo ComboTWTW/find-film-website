@@ -2,10 +2,14 @@ import { navbarLogo, accountLogo, magnifier, xMark } from '../../assets/index'
 import { NavLink } from 'react-router-dom'
 import { navbarLinks } from '../../constants'
 import { HamburgerBoring } from 'react-animated-burgers'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import SearchBar from './SearchBar'
 import AuthPopUp from './AuthPopUp'
 import { useOnClickOutside } from 'usehooks-ts'
+import { auth } from '../../config/firebase'
+import PopUpUser from './PopUpUser'
+import { onAuthStateChanged } from "firebase/auth";
+
 
 
 
@@ -27,6 +31,21 @@ const Navbar = () => {
         input: "",
         submit: false,
     });
+
+
+    const [userPicture, setUserPicture] = useState<string | undefined>(undefined);
+
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user && auth.currentUser?.photoURL !== null) {
+                console.log(auth.currentUser?.photoURL);
+                setUserPicture(auth.currentUser?.photoURL);
+            } else {
+                setUserPicture(accountLogo);
+            }
+          });
+    }, [])
 
 
 
@@ -64,11 +83,13 @@ const Navbar = () => {
                 <div className="hidden relative md:flex items-center flex-row gap-6">
                     <SearchBar setSearchInput={setSearchInput}/>
                     <span ref={authWindow} className="flex items-center">
-                        <button onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="navbarLogo" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
-
+                        {auth.currentUser !== null && auth.currentUser.photoURL?.length !== undefined ? 
+                        <button onClick={() => setAuthToggle(!authToggle)}><img src={userPicture} alt="" className='active:p-[0.08rem] rounded-full hover:opacity-80  cursor-pointer max-w-[40px] h-auto'/></button>
+                        : <button onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
+                        }
                             {/* Auth PopUp Desktop*/}
                         <div className={`md:${authToggle ? 'block ' : 'hidden'} z-50 md:absolute top-12 right-0`}>
-                            <AuthPopUp />
+                            {auth.currentUser !== null ? <PopUpUser /> : <AuthPopUp />}
                         </div>
                     </span>
                 </div>
