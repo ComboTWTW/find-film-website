@@ -108,7 +108,7 @@ const Navbar = () => {
                 <div className={`md:hidden ${toggleBurg ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter z-50`}>
                     <ul className='flex flex-col gap-6 items-start ml-5'>
                         <div className='mb-7'>
-                            <AuthPopUp />
+                            {auth.currentUser !== null ? <PopUpUser /> : <AuthPopUp />}
                         </div>
 
                         {navbarLinks.map((link) => {
