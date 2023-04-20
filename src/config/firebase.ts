@@ -1,21 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider  } from 'firebase/auth'
+import { firebaseConfig } from "../secure/firebaseConfig";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBsFtKYACRm4B71zAEAEFkBPBcmxpYIKRE",
-  authDomain: "find-film-website.firebaseapp.com",
-  projectId: "find-film-website",
-  storageBucket: "find-film-website.appspot.com",
-  messagingSenderId: "204404677453",
-  appId: "1:204404677453:web:af2ff47f458d0fe502b504",
-  measurementId: "G-NDF105X1K2"
-};
+firebaseConfig;
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
+export const googleProvider = new GoogleAuthProvider();
