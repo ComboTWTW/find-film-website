@@ -26,12 +26,13 @@ const App = () => {
 
 
 
-  const [isSigned, setIsSigned] = useState<boolean>(true);
+
+  const [isSigned, setIsSigned] = useState<boolean | null>(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-          return
+          setIsSigned(true)
         } else {
           setIsSigned(false)
         }
@@ -51,8 +52,8 @@ const App = () => {
             <Route path={'/about'} element={<h1 className='text-white'>about</h1>}/>
 
               {/* Private */}
-            <Route path={'/login'} element={isSigned ? <Navigate to="/" /> : <Auth loginType={loginTypes.login}/>}/>
-            <Route path={'/signup'} element={isSigned ? <Navigate to="/" /> : <Auth loginType={loginTypes.signup}/>}/>
+            <Route path={'/login'} element={isSigned === false ? <Auth loginType={loginTypes.login}/> : isSigned === true && <Navigate to="/" />}/>
+            <Route path={'/signup'} element={isSigned === false ? <Auth loginType={loginTypes.signup}/> : isSigned === true && <Navigate to="/" />}/>
 
             <Route path={'*'} element={<h1>404 Not Found</h1>}/>
           </Routes>
