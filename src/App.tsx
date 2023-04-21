@@ -2,7 +2,8 @@ import { BrowserRouter  as Router, Routes, Route, Navigate } from 'react-router-
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar/Navbar'
-import Auth from './pages/Auth/Auth'
+import Login from './pages/Auth/Login'
+import SignUp from './pages/Auth/SignUp'
 import Home from './pages/Home'
 import { auth } from "./config/firebase"
 import { onAuthStateChanged } from "firebase/auth";
@@ -52,8 +53,8 @@ const App = () => {
             <Route path={'/about'} element={<h1 className='text-white'>about</h1>}/>
 
               {/* Private */}
-            <Route path={'/login'} element={isSigned === false ? <Auth loginType={loginTypes.login}/> : isSigned === true && <Navigate to="/" />}/>
-            <Route path={'/signup'} element={isSigned === false ? <Auth loginType={loginTypes.signup}/> : isSigned === true && <Navigate to="/" />}/>
+            <Route path={'/login'} element={isSigned === false ? <Login loginType={loginTypes.login}/> : isSigned === true && <Navigate to="/" />}/>
+            <Route path={'/signup'} element={isSigned === false ? <SignUp loginType={loginTypes.signup}/> : isSigned === true && <Navigate to="/" />}/>
 
             <Route path={'*'} element={<h1>404 Not Found</h1>}/>
           </Routes>

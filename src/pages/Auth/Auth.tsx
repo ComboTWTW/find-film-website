@@ -1,11 +1,11 @@
 import { googleLogo } from "../../assets";
 import { styles } from "../../constants";
-import {useState, useEffect} from 'react'
-import { authDataValidation } from "../../functions/authDataValidation";
-import { signUp } from "../../functions/signUp";
+import { useState, useEffect } from 'react'
+import { authDataValidation } from "../../functions/AuthFunctions/authDataValidation";
+import { signUp } from "../../functions/AuthFunctions/signUp";
 import { signInWithPopup } from "firebase/auth";
 import { googleProvider, auth } from "../../config/firebase";
-
+import AuthTop from "../../components/AuthTop";
 
 
 interface Props {
@@ -40,7 +40,6 @@ const Auth = ({loginType}:Props) => {
     setAuthData({...authData, [inputType]: e.target.value})
   }
 
-  
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
@@ -72,18 +71,8 @@ const Auth = ({loginType}:Props) => {
   return (
     <div className='w-full relative flex justify-center'>
         <div className="max-w-[1300px] flex flex-col text-center items-center mt-12 px-4 md:px-0">
-            <h1 className='poppins text-white font-bold text-4xl'>{loginType === 'login' ? 'Welcome Back!' : "Let's get you set up"}</h1>
-            {/* Google Button */}
-            <button onClick={() => signInWithGoogle()} className='bg-white rounded-[5px] flex flex-row items-center justify-center gap-5 py-4 px-10 poppins font-semibold mt-10'><img src={googleLogo} alt="googleLogo" className="w-[20px] h-auto"/>{loginType === 'login' ? 'Sign In' : "Register"} via Google</button>
-
-              {/* Or line */}
-            <div className="flex justify-center items-center w-full mt-12">
-              <div className="bg-white h-[1px] w-full flex justify-center items-center">
-                <div className="bg-bgMain text-white px-2 poppins text-sm">OR</div>
-              </div>
-            </div>
-
-            <h2 className="poppins text-white font-semibold text-lg mt-10">{loginType === 'login' ? 'Sign In' : "Register"} via Email</h2>
+              {/* Top Section of the Page*/}
+            <AuthTop loginType={loginType}/>
         
             <ul className="flex flex-col gap-2 mt-10">
               <input id='username' maxLength={16} onChange={(e) => handleAuthChange(e)} placeholder='First Name' type="text" className={`${loginType === 'login' && 'hidden'} ${styles.authInput}`}/>

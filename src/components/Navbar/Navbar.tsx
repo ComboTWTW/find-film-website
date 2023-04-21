@@ -89,7 +89,7 @@ const Navbar = () => {
                         }
                             {/* Auth PopUp Desktop*/}
                         <div className={`md:${authToggle ? 'block ' : 'hidden'} z-50 md:absolute top-12 right-0`}>
-                            {auth.currentUser !== null ? <PopUpUser /> : <AuthPopUp />}
+                            {auth.currentUser !== null ? <PopUpUser username={auth.currentUser.displayName}/> : <AuthPopUp />}
                         </div>
                     </span>
                 </div>
@@ -108,7 +108,7 @@ const Navbar = () => {
                 <div className={`md:hidden ${toggleBurg ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter z-50`}>
                     <ul className='flex flex-col gap-6 items-start ml-5'>
                         <div className='mb-7'>
-                            {auth.currentUser !== null ? <PopUpUser /> : <AuthPopUp />}
+                            {auth.currentUser !== null ? <PopUpUser username={auth.currentUser.displayName}/> : <AuthPopUp />}
                         </div>
 
                         {navbarLinks.map((link) => {
