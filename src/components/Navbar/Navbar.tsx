@@ -9,6 +9,7 @@ import { useOnClickOutside } from 'usehooks-ts'
 import { auth } from '../../config/firebase'
 import PopUpUser from './PopUpUser'
 import { onAuthStateChanged } from "firebase/auth";
+import SearchPlate from './SearchPlate'
 
 
 
@@ -16,26 +17,26 @@ import { onAuthStateChanged } from "firebase/auth";
 const Navbar = () => {
 
     type searchInput = {
-        input: string;
+        input: string | null;
         submit: boolean;
     }
 
     const [toggleBurg, setToggleBurg] = useState<boolean>(false);
     const [toggleMagni, setToggleMagni] = useState<boolean>(false);
-    const [authToggle, setAuthToggle] = useState<boolean>(false);
 
+        /* State, ref and hook for authPopUp visibility */
+    const [authToggle, setAuthToggle] = useState<boolean>(false);
     const authWindow = useRef<any>();
     useOnClickOutside(authWindow, () => setAuthToggle(false))
-
+        /* State for information within searchBar */
     const [searchInput, setSearchInput] = useState<searchInput>({
-        input: "",
+        input: null,
         submit: false,
     });
 
-
+        /* States for availability of user profile picture */
     const [userPicture, setUserPicture] = useState<string | undefined>(undefined);
-
-
+        /* UseEffect for user profile picture states managing */
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user && auth.currentUser?.photoURL !== null) {
@@ -47,7 +48,14 @@ const Navbar = () => {
           });
     }, [])
 
-
+        /* UseEffect for Dropping Search Plate */
+    useEffect(() => {
+        setPlateToggle(false);
+    }, [searchInput.input])
+        /* State for Dropping Search Plate Visibility */
+    const [plateToggle, setPlateToggle] = useState<boolean>(false);
+    const plateWindow = useRef<any>();
+    useOnClickOutside(plateWindow, () => setPlateToggle(true))
 
 
     return (
@@ -80,12 +88,18 @@ const Navbar = () => {
                     
                 </div>   
                     {/* SeacrhBar and Account Section for Desktop */}        
-                <div className="hidden relative md:flex items-center flex-row gap-6">
+                <div ref={plateWindow} className="hidden relative md:flex items-center flex-row gap-6">
+                        {/* Search Bar */}
                     <SearchBar setSearchInput={setSearchInput}/>
+                        {/* Dropping Search Plate */}
+                    {searchInput.input !== null && <SearchPlate searchInput={searchInput} plateToggle={plateToggle}/>}
+                        {/* Account Logo and PopUp block */}
                     <span ref={authWindow} className="flex items-center">
+                            {/* Accout Logo if there is a picture*/}
                         {auth.currentUser !== null && auth.currentUser.photoURL?.length !== undefined ? 
-                        <button onClick={() => setAuthToggle(!authToggle)}><img src={userPicture} alt="" className='active:p-[0.08rem] rounded-full hover:opacity-80  cursor-pointer max-w-[40px] h-auto'/></button>
-                        : <button onClick={() => setAuthToggle(!authToggle)}><img src={accountLogo} alt="" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
+                        <button onClick={() => {setAuthToggle(!authToggle); setPlateToggle(true)}}><img src={userPicture} alt="" className='active:p-[0.08rem] rounded-full hover:opacity-80  cursor-pointer max-w-[40px] h-auto'/></button>
+                            /* Account Logo if there is no picture */
+                        : <button onClick={() => {setAuthToggle(!authToggle); setPlateToggle(true)}}><img src={accountLogo} alt="" className='active:p-[0.3rem] hover:opacity-80 p-1 cursor-pointer max-w-[38px] h-auto'/></button>
                         }
                             {/* Auth PopUp Desktop*/}
                         <div className={`md:${authToggle ? 'block ' : 'hidden'} z-50 md:absolute top-12 right-0`}>
