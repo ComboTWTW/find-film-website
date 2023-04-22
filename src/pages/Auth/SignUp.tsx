@@ -108,6 +108,8 @@ const SignUp = ({loginType}:Props) => {
                         sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                         onChange={() => setRecaptchaPassed(true)}
                         theme="dark"
+                        onExpired={() => setRecaptchaPassed(false)}
+                        onErrored={() => setRecaptchaPassed(false)}
                     />
                 </div>
 
