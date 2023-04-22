@@ -3,7 +3,6 @@ import { styles } from "../../constants";
 import { useState } from 'react'
 import { authDataValidationSignUp } from "../../functions/AuthFunctions/authDataValidation";
 import { signUp } from "../../functions/AuthFunctions/signUp";
-import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 
 
@@ -44,17 +43,13 @@ const SignUp = ({loginType}:Props) => {
 
     }
 
-    const nav = useNavigate();
 
     const handleSighUp = async (authDataSignUp:authDataSignUpT) => {
         if(authDataValidationSignUp(authDataSignUp).length === 0) {
             try { 
                 await signUp(authDataSignUp);
-                nav('/', { replace: true } );
-    
             } catch(error:any) {
-                console.log(error.message)
-                if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+                if (error.code === 'auth/email-already-in-use') {
                     setInputError([{
                         input: 'email',
                         message: 'Email already in use'
