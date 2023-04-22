@@ -3,6 +3,12 @@ import { styles } from "../../constants";
 import { useState } from 'react'
 import { authDataValidationSignUp } from "../../functions/AuthFunctions/authDataValidation";
 import { signUp } from "../../functions/AuthFunctions/signUp";
+import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
+
+
+
+
 
 
 interface Props {
@@ -30,25 +36,21 @@ const SignUp = ({loginType}:Props) => {
 
     const [ inputError, setInputError ] = useState<errorObject[] | []>([]);
 
+    const [ recaptchaPassed, setRecaptchaPassed] = useState<boolean>(false);
+
     const handleAuthChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         const inputType = e.target.id;
         setauthDataSignUp({...authDataSignUp, [inputType]: e.target.value})
 
-        /* inputError.length !== 0 && authDataValidationSignUp(authDataSignUp).map((err) => {
-            if(err.input !== inputType) {
-                let newArr = [];
-                newArr.push(err);
-                setInputError([...newArr]);
-            } else {
-                return null
-            }
-        }) */
     }
 
-    const handleSighnUp = async (authDataSignUp:authDataSignUpT) => {
+    const nav = useNavigate();
+
+    const handleSighUp = async (authDataSignUp:authDataSignUpT) => {
         if(authDataValidationSignUp(authDataSignUp).length === 0) {
             try { 
                 await signUp(authDataSignUp);
+                nav('/', { replace: true } );
     
             } catch(error:any) {
                 console.log(error.message)
@@ -66,13 +68,14 @@ const SignUp = ({loginType}:Props) => {
     }
     
     
+    
   return (
     <div className='w-full relative flex justify-center'>
         <div className="max-w-[1300px] flex flex-col text-center items-center mt-12 px-4 md:px-0">
             {/* Top Section of the Page*/}
             <AuthTop loginType={loginType}/>
         
-            <ul className="flex flex-col gap-2 mt-10">
+            <form  className="flex flex-col gap-2 mt-10">
 
                 <input  id='username' maxLength={16} onChange={(e) => handleAuthChange(e)} placeholder='First Name' type="text" className={`${styles.authInput}`}/>
                 {
@@ -88,7 +91,7 @@ const SignUp = ({loginType}:Props) => {
                     inputError.length > 0 && inputError.map((err) => {
                         if(err.input === 'email') {
                             return <h1 key={err.input} className='poppins text-red-700 text-sm text-start'>{err.message}</h1>
-                        }
+                        } 
                     })
                 }
 
@@ -100,12 +103,18 @@ const SignUp = ({loginType}:Props) => {
                         }
                     })
                 }
+                <div className="flex justify-center w-full mt-2">
+                    <ReCAPTCHA
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                        onChange={() => setRecaptchaPassed(true)}
+                        theme="dark"
+                    />
+                </div>
 
-                <button onClick={() => handleSighnUp(authDataSignUp)}  className="poppins text-white text-xl bgGradient font-semibold rounded-full py-4 px-20 mt-10">{loginType === 'login' ? 'Sign In' : "Register"}</button>
+                <button disabled={recaptchaPassed ? false : true} type="button" onClick={() => handleSighUp(authDataSignUp)}  className="poppins text-white text-xl bgGradient font-semibold rounded-full py-4 mt-2 px-20 disabled:opacity-50">{loginType === 'login' ? 'Sign In' : "Register"}</button>
 
-            </ul>
+            </form>
 
-            <a href="" className={`${loginType === 'signup' && 'hidden'} poppins text-gray-500 text-sm mt-5`}>Forgot your password?</a>
 
             
 
