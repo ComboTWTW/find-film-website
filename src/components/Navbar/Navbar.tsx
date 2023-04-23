@@ -17,7 +17,7 @@ import SearchPlate from './SearchPlate'
 const Navbar = () => {
 
     type searchInput = {
-        input: string | null;
+        input: string;
         submit: boolean;
     }
 
@@ -30,7 +30,7 @@ const Navbar = () => {
     useOnClickOutside(authWindow, () => setAuthToggle(false))
         /* State for information within searchBar */
     const [searchInput, setSearchInput] = useState<searchInput>({
-        input: null,
+        input: "",
         submit: false,
     });
 
@@ -51,9 +51,13 @@ const Navbar = () => {
         /* UseEffect for Dropping Search Plate */
     useEffect(() => {
         setPlateToggle(false);
-    }, [searchInput.input])
+        if(searchInput.input === "") {
+            setPlateToggle(true)
+        }
+    }, [searchInput.input]);
+   
         /* State for Dropping Search Plate Visibility */
-    const [plateToggle, setPlateToggle] = useState<boolean>(false);
+    const [plateToggle, setPlateToggle] = useState<boolean>(true);
     const plateWindow = useRef<any>();
     useOnClickOutside(plateWindow, () => setPlateToggle(true))
 
@@ -90,7 +94,7 @@ const Navbar = () => {
                     {/* SeacrhBar and Account Section for Desktop */}        
                 <div ref={plateWindow} className="hidden relative md:flex items-center flex-row gap-6">
                         {/* Search Bar */}
-                    <SearchBar setSearchInput={setSearchInput}/>
+                    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput}/>
                         {/* Dropping Search Plate */}
                     {searchInput.input !== null && <SearchPlate searchInput={searchInput} plateToggle={plateToggle}/>}
                         {/* Account Logo and PopUp block */}
@@ -134,7 +138,7 @@ const Navbar = () => {
                     {/* Mobile SearchBar */}
                 {toggleMagni && 
                     <div className="absolute top-[73px] md:hidden w-full">
-                        <SearchBar setSearchInput={setSearchInput}/>
+                        <SearchBar searchInput={searchInput} setSearchInput={setSearchInput}/>
                     </div>
                 }    
                         

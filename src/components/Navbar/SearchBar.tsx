@@ -1,14 +1,19 @@
 import { magnifier, xMark } from '../../assets/index'
 import { useState } from 'react'
 
+type searchInput = {
+    input: string;
+    submit: boolean;
+}
 
 interface Props {
     setSearchInput: Function;
+    searchInput: searchInput;
 }
 
 
 
-const SearchBar = ({setSearchInput}:Props) => {
+const SearchBar = ({setSearchInput, searchInput}:Props) => {
 
 
     const [inputValue, setInputValue] = useState<string>("")
