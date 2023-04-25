@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import { search } from '../../api/search';
 
 
+
 type searchInput = {
     input: string;
     submit: boolean;
@@ -60,7 +61,12 @@ const SearchBar = () => {
         refetch, 
       } = useQuery(['search'], () => search(searchInput.input))
 
+   
+
+    const [showC, setShowC] = useState<boolean>(false)
+
     useEffect(() => {
+        searchInput.input.length === 0 && setShowC(false)
         let newData:any = data;
         refetch();
         isSuccess && setDataObj(dataObj => [...newData.results])
@@ -80,8 +86,9 @@ const SearchBar = () => {
         <form onSubmit={(e) => handleSubmitClick(e)}>
             <input value={searchInput.input} onChange={(e) => handleChanges(e)} placeholder='Type for search...' type="text" className='bg-darkLighter poppins rounded-none md:rounded-[5px]  md:focus:outline-offset-0 md:focus:outline-1 md:focus:outline-gray-400 focus:outline-none py-[10px] md:py-[5px] pl-10 pr-9 md:pl-[2.3rem] md:pr-9 w-full md:max-w-[22rem] text-white font-light outline-none'/>
         </form>
-        <div className={`${plateToggle === true && 'hidden'} ${searchInput.input.length === 0 && 'hidden'} ${dataObj.length === 0 && 'hidden'}`}>
-            <SearchPlate plateToggle={plateToggle} dataObj={dataObj} searchInput={searchInput.input}/>
+
+        <div className={`duration-300 ${plateToggle === true && 'opacity-0'} ${searchInput.input.length === 0 && 'opacity-0'} ${dataObj.length === 0 && 'opacity-0'}`}>
+            <SearchPlate dataObj={dataObj} />
         </div>
     </div>  
 )
@@ -91,11 +98,3 @@ export default SearchBar
 
 
 
-
-/* UseEffect for Dropping Search Plate */
-      /* useEffect(() => {
-        setPlateToggle(false);
-        if(searchInput.input === "") {
-            setPlateToggle(true)
-        }
-    }, [searchInput.input]); */
