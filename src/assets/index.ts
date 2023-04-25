@@ -3,6 +3,7 @@ import magnifier from './magnifier.png'
 import accountLogo from './accountLogo.png'
 import xMark from './xMark.svg'
 import googleLogo from './Google.png' 
+import noImage from './no-image.jpg'
 
 
 export {
@@ -11,4 +12,5 @@ export {
     accountLogo,
     xMark,
     googleLogo,
+    noImage
 }
