@@ -55,3 +55,10 @@
     transform: scale(0.97);
   }
 }
+
+@media (min-width: 768px) {
+  .borderPlate {
+    border: 1px solid rgb(107 114 128);
+    border-radius: 5px;
+  }
+}
