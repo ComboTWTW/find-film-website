@@ -5,8 +5,6 @@ import SearchPlate from './SearchPlate';
 import { useQuery } from 'react-query';
 import { search } from '../../api/search';
 
-
-
 type searchInput = {
     input: string;
     submit: boolean;
@@ -23,7 +21,6 @@ type filmT = {
     gender: number,
 }
 
-
 const SearchBar = () => {
     
     /* State for information within searchBar */
@@ -36,14 +33,10 @@ const SearchBar = () => {
     const [plateToggle, setPlateToggle] = useState<boolean>(false);
     const plateWindow = useRef<any>();
     useOnClickOutside(plateWindow, () => setPlateToggle(true))
-
-    
-
     
     const handleChanges = (e:any) => {
         setSearchInput(searchInput => ({searchInput, input: e.target.value, submit: false}));
     }
-
 
     const handleClearcClick = () => {
         setSearchInput(searchInput => ({searchInput, input: '', submit: false}));
@@ -62,11 +55,7 @@ const SearchBar = () => {
       } = useQuery(['search'], () => search(searchInput.input))
 
    
-
-    const [showC, setShowC] = useState<boolean>(false)
-
     useEffect(() => {
-        searchInput.input.length === 0 && setShowC(false)
         let newData:any = data;
         refetch();
         isSuccess && setDataObj(dataObj => [...newData.results])
@@ -74,10 +63,6 @@ const SearchBar = () => {
     }, [searchInput, isSuccess, data]) 
 
     const [dataObj, setDataObj] = useState<filmT[]>([])
-
-
-      
-
 
   return (
     <div ref={plateWindow} className="relative z-30">

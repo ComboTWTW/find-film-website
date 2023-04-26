@@ -1,4 +1,4 @@
-import { noImage } from "../assets";
+import { noImage } from "../../assets";
 
 noImage
 
