@@ -4,6 +4,8 @@ import useOnClickOutside from '../../hooks/useClickOutside'
 import SearchPlate from './SearchPlate';
 import { useQuery } from 'react-query';
 import { search } from '../../api/search';
+import { timer } from '../../functions/timer';
+
 
 type searchInput = {
     input: string;
@@ -52,10 +54,20 @@ const SearchBar = () => {
         isSuccess, 
         data, 
         refetch, 
-        isFetchedAfterMount
       } = useQuery(['search'], () => search(searchInput.input))
 
-   
+   const [ show, setShow ] = useState<boolean>(false);
+   let input = searchInput.input;
+
+   useEffect(() => {
+        const waiter = async () => {
+            setShow(false)
+            await timer(250);  
+            setShow(true)          
+        }
+        waiter();
+   }, [input])
+
     useEffect(() => {
         let newData:any = data;
         refetch();
@@ -73,9 +85,9 @@ const SearchBar = () => {
             <input value={searchInput.input} onChange={(e) => handleChanges(e)} placeholder='Type for search...' type="text" className='bg-darkLighter poppins rounded-none md:rounded-[5px]  md:focus:outline-offset-0 md:focus:outline-1 md:focus:outline-gray-400 focus:outline-none py-[10px] md:py-[5px] pl-10 pr-9 md:pl-[2.3rem] md:pr-9 w-full md:max-w-[22rem] text-white font-light outline-none'/>
         </form>
 
-        <div className={`duration-300 ${plateToggle === true && 'opacity-0'} ${searchInput.input.length === 0 && 'opacity-0'} ${dataObj.length === 0 && 'opacity-0'}`}>
-            <SearchPlate dataObj={dataObj} isFetchedAfterMount={isFetchedAfterMount}/>
-        </div>
+        {show && <div className={`delay-1000 opacity-100 ${plateToggle === true && 'hidden'} ${searchInput.input.length === 0 && 'hidden'} ${dataObj.length === 0 && 'hidden'}`}>
+            <SearchPlate dataObj={dataObj}/>
+        </div>}
     </div>  
 )
 }

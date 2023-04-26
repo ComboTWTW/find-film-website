@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { imgArray } from '../../functions/SearchBar/cacheImages';
 import { getName } from "../../functions/SearchBar/getName";
 import { getImage } from "../../functions/SearchBar/getImage";
+import { timer } from "../../functions/timer";
+
 
 interface Props  {
     dataObj: filmT[];
-    isFetchedAfterMount: boolean;
 }
 
 type filmT = {
@@ -19,7 +20,7 @@ type filmT = {
     gender: number,
 }
 
-const SearchPlate = ({ dataObj, isFetchedAfterMount }:Props) => {
+const SearchPlate = ({ dataObj }:Props) => {
 
     const [ isLoading, setIsLoading] = useState<boolean>(true);
     let newDO = [...dataObj];
@@ -40,30 +41,28 @@ const SearchPlate = ({ dataObj, isFetchedAfterMount }:Props) => {
     }
 
     useEffect(() => {
-
-        console.log(isLoading)
         const imgs = imgArray(dataObj);
         cacheImages(imgs)
-        console.log(isLoading)
     }, [dataObj])
+
+    const [ show, setShow ] = useState<boolean>(false);
+
+
+   useEffect(() => {
+        const waiter = async () => {
+            setShow(false)
+            await timer(300);  
+            setShow(true)          
+        }
+        waiter();
+   }, [dataObj])
  
   return (
-    <div  className={`z-30 absolute bg-darkLighter top-11 borderPlate w-full `}>
-        <div className={`bg-darkLighter  md:rounded-[5px] `}>
-                <ul className={`flex flex-col items-start ${isLoading ?'block' : 'hidden'}`}>
-                    {newDO.slice(0,3).map((film:filmT) => {
-                        return <li className=" flex flex-col w-full">
-                            <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
-                                <img className="w-[55px] h-auto"  src={`${getImage(film)}`} alt="" />
-                                <h3 className=" poppins  text-white text-[1.1rem] pr-1">{`${getName(film)}`}</h3>
-                            </div>
-                            <div className="w-full bg-gray-500 h-[1px]"></div>
-                            </li>
-                            
-                })}
-                    <h3 className={`w-full  text-center  poppins py-1 tracking-wider text-white`}>Show more...</h3>
-                </ul>
-                <ul className={`flex flex-col items-start ${!isLoading ?'block' : 'hidden'}`}>
+    <div className="">
+    {show && <div  className={`z-30 absolute bg-darkLighter top-11 borderPlate w-full `}>
+     <div className={`bg-darkLighter  md:rounded-[5px] `}>
+
+                <ul className={`flex flex-col items-start ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
                     {dataObj.slice(0,3).map((film:filmT) => {
                         return <li className=" flex flex-col w-full">
                             <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
@@ -75,7 +74,8 @@ const SearchPlate = ({ dataObj, isFetchedAfterMount }:Props) => {
                 })}
                 <h3 className={`w-full  text-center overflow-hidden poppins py-1 tracking-wider text-white`}>Show more...</h3>
             </ul>
-        </div>
+        </div> 
+    </div>}
     </div>
   )
 }
