@@ -52,6 +52,7 @@ const SearchBar = () => {
         isSuccess, 
         data, 
         refetch, 
+        isFetchedAfterMount
       } = useQuery(['search'], () => search(searchInput.input))
 
    
@@ -73,7 +74,7 @@ const SearchBar = () => {
         </form>
 
         <div className={`duration-300 ${plateToggle === true && 'opacity-0'} ${searchInput.input.length === 0 && 'opacity-0'} ${dataObj.length === 0 && 'opacity-0'}`}>
-            <SearchPlate dataObj={dataObj} />
+            <SearchPlate dataObj={dataObj} isFetchedAfterMount={isFetchedAfterMount}/>
         </div>
     </div>  
 )

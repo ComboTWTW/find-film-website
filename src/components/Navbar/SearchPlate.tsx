@@ -5,6 +5,7 @@ import { getImage } from "../../functions/SearchBar/getImage";
 
 interface Props  {
     dataObj: filmT[];
+    isFetchedAfterMount: boolean;
 }
 
 type filmT = {
@@ -18,37 +19,38 @@ type filmT = {
     gender: number,
 }
 
-const SearchPlate = ({ dataObj }:Props) => {
+const SearchPlate = ({ dataObj, isFetchedAfterMount }:Props) => {
 
     const [ isLoading, setIsLoading] = useState<boolean>(true);
     let newDO = [...dataObj];
 
-    useEffect(() => {
-        setIsLoading(true)
-        const imgs = imgArray(dataObj);
-        cacheImages(imgs)
-    }, [dataObj])
-
     const cacheImages = async (imgArr:string[]) => {
         const promises = await imgArr.map((src) => {
             return new Promise<void>((resolve, reject) => {
-                setTimeout(() => {
-                    const img = new Image();
-                    img.src = src;
-                    img.onload = () => resolve();
-                    img.onerror = () => reject();
-                }, 200);
+                setIsLoading(isLoading => true)
+                const img = new Image();
+                img.src = src;
+                img.onload = () => resolve();
+                img.onerror = () => reject();
+                console.log('timer dine');
             })
         })
         await Promise.all(promises);
         setIsLoading(false);
     }
+
+    useEffect(() => {
+
+        console.log(isLoading)
+        const imgs = imgArray(dataObj);
+        cacheImages(imgs)
+        console.log(isLoading)
+    }, [dataObj])
  
   return (
     <div  className={`z-30 absolute bg-darkLighter top-11 borderPlate w-full `}>
-        <div className={`bg-darkLighter  md:rounded-[5px]`}>
-             { isLoading ?
-                <ul className={`flex flex-col items-start`}>
+        <div className={`bg-darkLighter  md:rounded-[5px] `}>
+                <ul className={`flex flex-col items-start ${isLoading ?'block' : 'hidden'}`}>
                     {newDO.slice(0,3).map((film:filmT) => {
                         return <li className=" flex flex-col w-full">
                             <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
@@ -61,8 +63,7 @@ const SearchPlate = ({ dataObj }:Props) => {
                 })}
                     <h3 className={`w-full  text-center  poppins py-1 tracking-wider text-white`}>Show more...</h3>
                 </ul>
-                :
-                <ul className={`flex flex-col items-start`}>
+                <ul className={`flex flex-col items-start ${!isLoading ?'block' : 'hidden'}`}>
                     {dataObj.slice(0,3).map((film:filmT) => {
                         return <li className=" flex flex-col w-full">
                             <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
@@ -74,7 +75,6 @@ const SearchPlate = ({ dataObj }:Props) => {
                 })}
                 <h3 className={`w-full  text-center overflow-hidden poppins py-1 tracking-wider text-white`}>Show more...</h3>
             </ul>
-            }
         </div>
     </div>
   )
