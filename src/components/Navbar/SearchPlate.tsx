@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { imgArray } from '../../functions/SearchBar/cacheImages';
+import { imgArray } from '../../functions/cacheImages';
 import { getName } from "../../functions/SearchBar/getName";
 import { getImage } from "../../functions/SearchBar/getImage";
 import { timer } from "../../functions/timer";
@@ -23,7 +23,6 @@ type filmT = {
 const SearchPlate = ({ dataObj }:Props) => {
 
     const [ isLoading, setIsLoading] = useState<boolean>(true);
-    let newDO = [...dataObj];
 
     const cacheImages = async (imgArr:string[]) => {
         const promises = await imgArr.map((src) => {
@@ -33,23 +32,20 @@ const SearchPlate = ({ dataObj }:Props) => {
                 img.src = src;
                 img.onload = () => resolve();
                 img.onerror = () => reject();
-                console.log('timer dine');
             })
         })
         await Promise.all(promises);
         setIsLoading(false);
+        
     }
-
-    useEffect(() => {
-        const imgs = imgArray(dataObj);
-        cacheImages(imgs)
-    }, [dataObj])
 
     const [ show, setShow ] = useState<boolean>(false);
 
 
    useEffect(() => {
         const waiter = async () => {
+            const imgs = imgArray(dataObj);
+            cacheImages(imgs)
             setShow(false)
             await timer(300);  
             setShow(true)          
@@ -59,10 +55,10 @@ const SearchPlate = ({ dataObj }:Props) => {
  
   return (
     <div className="">
-    {show && <div  className={`z-30 absolute bg-darkLighter top-11 borderPlate w-full `}>
+    {show && <div  className={`z-30 absolute bg-darkLighter top-11 borderPlate w-full ${isLoading ? 'hidden' : 'block'}`}>
      <div className={`bg-darkLighter  md:rounded-[5px] `}>
 
-                <ul className={`flex flex-col items-start ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
+                <ul className={`flex flex-col items-start`}>
                     {dataObj.slice(0,3).map((film:filmT) => {
                         return <li className=" flex flex-col w-full">
                             <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
