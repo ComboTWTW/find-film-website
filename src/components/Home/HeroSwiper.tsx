@@ -52,29 +52,35 @@ const HeroSwiper = () => {
 
   return (
     <div className='flex w-full justify-center '>
-      <div className="max-w-full h-auto  flex justify-center">
         <Swiper
-          slidesPerView={3}
-          width={2500}
-          
-          spaceBetween={30}
+          slidesPerView={2}
+          spaceBetween={20}
           loop={true}
           navigation={true}
           modules={[Navigation]}
           centeredSlides={true}
-          centeredSlidesBounds={true}
-          zoom={true}
+          
+
           breakpoints={{}}
-          className=""
+          className="min-w-[120vw]"
         >
             {newData?.results.map((film) => (
               <SwiperSlide className={`overflow-hidden flex justify-center`} key={`https://image.tmdb.org/t/p/original${film.backdrop_path}`}>
-                <div className="flex justify-center items-center overflow-hidden w-full md:max-w-[60rem]"><img className=' rounded-[10px] h-auto ' src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt="" /></div>
+               {({isPrev, isNext, isActive}) => (
+               <div className={`${isNext && 'opacity-50'} ${isPrev && 'opacity-50'} relative rounded-[10px] flex justify-center items-center overflow-hidden w-full `}>
+                  <img className='w-full h-auto ' src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt="" />
+                  <div className="absolute left-0 bottom-0 top-0 bg-black bg-opacity-90 p-4 pr-10 flex flex-col justify-between items-start max-w-[45%] min-w-[45%]">
+                    <h1 className=' shrink-1 poppins text-white md:text-lg lg:text-4xl  font-bold'>{film.title}</h1>
+                    <div className="flex justify-between w-full mt-3">
+                      <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt="" className='w-[40%] h-auto rounded-[10px]'/>
+                      
+                    </div>
+                  </div>
+                </div>
+               )}
               </SwiperSlide>
             ))}
         </Swiper>
-      </div>
-      
     </div>
   )
 }
