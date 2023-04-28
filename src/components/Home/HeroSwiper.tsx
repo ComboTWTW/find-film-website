@@ -41,11 +41,7 @@ const HeroSwiper = () => {
     
     const [ newData, setNewData ] = useState<dataT>();
 
-    useEffect(() => {
-        if (data !== undefined) {
-            setNewData(data);
-        }
-    }, [data])
+  
      
 
       
@@ -64,7 +60,7 @@ const HeroSwiper = () => {
           breakpoints={{}}
           className="min-w-[120vw]"
         >
-            {newData?.results.map((film) => (
+            {isSuccess && data?.results.map((film:popularDataT) => (
               <SwiperSlide className={`overflow-hidden flex justify-center`} key={`https://image.tmdb.org/t/p/original${film.backdrop_path}`}>
                {({isPrev, isNext, isActive}) => (
                <div className={`${isNext && 'opacity-50'} ${isPrev && 'opacity-50'} relative rounded-[10px] flex justify-center items-center overflow-hidden w-full `}>
