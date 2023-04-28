@@ -47,7 +47,7 @@ const SearchPlate = ({ dataObj }:Props) => {
             const imgs = imgArray(dataObj);
             cacheImages(imgs)
             setShow(false)
-            await timer(300);  
+            await timer(350);  
             setShow(true)          
         }
         waiter();

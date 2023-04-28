@@ -8,6 +8,8 @@ import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { getFilm } from '../../api/getFilm';
+import SubSlide from './SubSlide';
 
 
 const HeroSwiper = () => {
@@ -29,22 +31,16 @@ const HeroSwiper = () => {
     
 
     const { 
-        data, 
-        refetch, 
-        isSuccess
+        data:dataPopular, 
+        refetch:refetchPopular, 
+        isSuccess:isSuccessPopular
       } = useQuery(['getPop'], () => getPopular());
 
 
     useEffect(() => {
-        refetch();
+      refetchPopular();
     }, [])
     
-    const [ newData, setNewData ] = useState<dataT>();
-
-  
-     
-
-      
 
   return (
     <div className='flex w-full justify-center '>
@@ -58,19 +54,16 @@ const HeroSwiper = () => {
           
 
           breakpoints={{}}
-          className="min-w-[120vw]"
+          className="min-w-[115vw]"
         >
-            {isSuccess && data?.results.map((film:popularDataT) => (
-              <SwiperSlide className={`overflow-hidden flex justify-center`} key={`https://image.tmdb.org/t/p/original${film.backdrop_path}`}>
+            {isSuccessPopular && dataPopular?.results.slice(0, 10).map((film:popularDataT) => (
+              <SwiperSlide className={`overflow-hidden flex justify-center cursor-pointer`} key={`https://image.tmdb.org/t/p/original${film.backdrop_path}`}>
                {({isPrev, isNext, isActive}) => (
                <div className={`${isNext && 'opacity-50'} ${isPrev && 'opacity-50'} relative rounded-[10px] flex justify-center items-center overflow-hidden w-full `}>
-                  <img className='w-full h-auto ' src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt="" />
+                  <img loading='lazy' className='w-full h-auto' src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt="" />
                   <div className="absolute left-0 bottom-0 top-0 bg-black bg-opacity-90 p-4 pr-10 flex flex-col justify-between items-start max-w-[45%] min-w-[45%]">
                     <h1 className=' shrink-1 poppins text-white md:text-lg lg:text-4xl  font-bold'>{film.title}</h1>
-                    <div className="flex justify-between w-full mt-3">
-                      <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt="" className='w-[40%] h-auto rounded-[10px]'/>
-                      
-                    </div>
+                    <SubSlide posterPath={film.poster_path} id={film.id}/>
                   </div>
                 </div>
                )}
