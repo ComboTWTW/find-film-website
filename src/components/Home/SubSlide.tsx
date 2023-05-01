@@ -21,7 +21,7 @@ const SubSlide = ({ posterPath, id }:Props) => {
         data:dataFilm, 
         refetch:refetchFilm, 
         isSuccess:isSuccessFilm
-    } = useQuery<filmData>(['getFilm', id], () => getFilm(id));
+    } = useQuery<filmData>(['getFilm', id], () => getFilm(id, 'movie'));
 
 
     useEffect(() => {
