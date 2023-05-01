@@ -7,6 +7,7 @@ import SignUp from './pages/Auth/SignUp'
 import Home from './pages/Home'
 import { auth } from "./config/firebase"
 import { onAuthStateChanged } from "firebase/auth";
+import Movie from './pages/Movie'
 
 const App = () => {
 
@@ -52,6 +53,9 @@ const App = () => {
             <Route path={'/people'} element={<h1 className='text-white'>people</h1>}/>
             <Route path={'/about'} element={<h1 className='text-white'>about</h1>}/>
 
+              {/* Individual pages */}
+              <Route path={'/movie/?'} element={<Movie />}/>
+              <Route path={'/tv/?'} element={<Movie />}/>
               {/* Private */}
             <Route path={'/login'} element={isSigned === false ? <Login loginType={loginTypes.login}/> : isSigned === true && <Navigate to="/" />}/>
             <Route path={'/signup'} element={isSigned === false ? <SignUp loginType={loginTypes.signup}/> : isSigned === true && <Navigate to="/" />}/>

@@ -52,7 +52,7 @@ const HeroSwiper = () => {
           loop={true}
           modules={[Navigation, Autoplay]}
           autoplay={{
-            delay: 2500,
+            delay: 3000,
             disableOnInteraction: false,
           }}
 
@@ -87,7 +87,7 @@ const HeroSwiper = () => {
               <SwiperSlide className={` overflow-hidden flex justify-center cursor-pointer relative`} key={`https://image.tmdb.org/t/p/original${film.backdrop_path}`}>
                {({isPrev, isNext, isActive}) => (
                <div className={`${isNext && 'opacity-50'} ${isPrev && 'opacity-50'} relative rounded-[10px] flex justify-center items-center overflow-hidden w-full `}>
-                  <img loading='lazy' className='w-full h-auto' src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt="" />
+                  <img  className='w-full h-auto' src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt="" />
                   <div className="absolute left-0 bottom-0 top-0 bg-black bg-opacity-90 p-4 pr-10 flex flex-col justify-between items-start max-w-[45%] min-w-[45%]">
                     <h1 className=' shrink-1 poppins text-white md:text-lg lg:text-4xl lg:leading-normal md:leading-snug font-bold'>{film.title}</h1>
                     <SubSlide posterPath={film.poster_path} id={film.id}/>

@@ -3,6 +3,8 @@ import { imgArray } from '../../functions/cacheImages';
 import { getName } from "../../functions/SearchBar/getName";
 import { getImage } from "../../functions/SearchBar/getImage";
 import { timer } from "../../functions/timer";
+import { Link } from "react-router-dom";
+import { getLinkParams } from "../../functions/SearchBar/getLinkParams";
 
 
 interface Props  {
@@ -18,6 +20,7 @@ type filmT = {
     name: string,
     profile_path: string,
     gender: number,
+    id: number,
 }
 
 const SearchPlate = ({ dataObj }:Props) => {
@@ -60,13 +63,13 @@ const SearchPlate = ({ dataObj }:Props) => {
 
                 <ul className={`flex flex-col items-start`}>
                     {dataObj.slice(0,3).map((film:filmT) => {
-                        return <li className=" flex flex-col w-full">
+                        return <Link key={film.id} reloadDocument={true} to={`${getLinkParams(film)}`} className="w-full"><li className=" flex flex-col w-full">
                             <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
                                 <img className="w-[55px] h-auto"  src={`${getImage(film)}`} alt="" />
                                 <h3 className=" poppins  text-white text-[1.1rem] pr-1">{`${getName(film)}`}</h3>
                             </div>
                             <div className="w-full bg-gray-500 h-[1px]"></div>
-                            </li>
+                            </li></Link>
                 })}
                 <h3 className={`w-full  text-center overflow-hidden poppins py-1 tracking-wider text-white`}>Show more...</h3>
             </ul>
