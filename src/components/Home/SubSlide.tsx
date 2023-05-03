@@ -1,6 +1,7 @@
 import { useQuery } from "react-query"
 import { getFilm } from "../../api/getFilm";
 import { useEffect, useState } from 'react';
+import { runtimeCalc } from "../../functions/runtimeCalc";
 
 
 interface Props {
@@ -41,7 +42,7 @@ const SubSlide = ({ posterPath, id }:Props) => {
         </div>
 
         {isSuccessFilm && <div className="flex flex-col ">
-            <p className="poppins text-white text-xs lg:text-base ">{dataFilm.release_date.slice(0, 4)} <span className={`${dataFilm.runtime === 0 && 'hidden'}`}> • {Math.floor(dataFilm.runtime /60)} hr {dataFilm.runtime % 60} min</span></p>
+            <p className="poppins text-white text-xs lg:text-base ">{dataFilm.release_date.slice(0, 4)} <span className={`${dataFilm.runtime === 0 && 'hidden'}`}> • {runtimeCalc(dataFilm.runtime)}</span></p>
             <p className="poppins text-white text-xs lg:text-base mt-[5px] ">{dataFilm.genres.slice(0, 1).map((genre) => {
                 return `${genre.name}`
             })

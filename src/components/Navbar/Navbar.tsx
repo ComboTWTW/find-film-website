@@ -91,7 +91,7 @@ const Navbar = () => {
                 </div>
                   
                     {/* Medium Desktop Burger Menu */}           
-                <div className={`sm:hidden lg:hidden ${toggleBurg ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center h-screen bg-darkLighter`}>
+                <div className={`sm:hidden lg:hidden ${toggleBurg ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} z-50 duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center h-screen bg-darkLighter`}>
                     <ul className='flex flex-col gap-8 items-center'>
                         {navbarLinks.map((link) => {
                             return <NavLink key={link.id} reloadDocument to={link.path}><li className='poppins text-white text-lg hover:text-[#9dadbc] '>{link.title}</li></NavLink>

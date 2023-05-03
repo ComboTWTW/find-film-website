@@ -5,7 +5,7 @@ import { getImage } from "../../functions/SearchBar/getImage";
 import { timer } from "../../functions/timer";
 import { Link } from "react-router-dom";
 import { getLinkParams } from "../../functions/SearchBar/getLinkParams";
-
+import { filmDataT } from "../../api/getFilm";
 
 interface Props  {
     dataObj: filmT[];
