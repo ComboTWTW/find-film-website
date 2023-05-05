@@ -1,5 +1,4 @@
 export const runtimeCalc = (runtime:number | null):String | null => {
-    console.log(runtime)
     if (runtime === null || runtime === undefined) {
         return "";
     } else if (runtime / 60 < 1 ) {

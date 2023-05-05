@@ -1,5 +1,5 @@
 import HeroSwiper from "../components/Home/HeroSwiper"
-import { Swiper, SwiperSlide } from "swiper/react";
+
 
 const Home = () => {
 

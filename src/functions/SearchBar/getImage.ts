@@ -1,4 +1,4 @@
-import { noImage } from "../../assets";
+import { noImgLong } from "../../assets";
 
 
 type filmT = {
@@ -15,12 +15,12 @@ type filmT = {
 export const getImage = (film:filmT):string => {
     if (film.media_type === 'person') {
         if (film.profile_path === null) {
-            return noImage
+            return noImgLong
         } else {
             return `https://image.tmdb.org/t/p/w500${film.profile_path}`;
         }
     } else if (film.poster_path === null) {
-        return noImage
+        return noImgLong
     } else {
         return `https://image.tmdb.org/t/p/w500${film.poster_path}`
     }

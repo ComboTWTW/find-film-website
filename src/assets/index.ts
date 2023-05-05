@@ -3,8 +3,8 @@ import magnifier from './magnifier.png'
 import accountLogo from './accountLogo.png'
 import xMark from './xMark.svg'
 import googleLogo from './Google.png' 
-import noImage from './no-image.jpg'
-
+import noImage from './no-image.svg'
+import noImgLong from './no-image.jpg'
 
 export {
     navbarLogo,
@@ -12,5 +12,6 @@ export {
     accountLogo,
     xMark,
     googleLogo,
-    noImage
+    noImage,
+    noImgLong,
 }

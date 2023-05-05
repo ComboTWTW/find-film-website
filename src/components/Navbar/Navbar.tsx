@@ -32,7 +32,6 @@ const Navbar = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user && auth.currentUser?.photoURL !== null) {
-                console.log(auth.currentUser?.photoURL);
                 setUserPicture(auth.currentUser?.photoURL);
             } else {
                 setUserPicture(accountLogo);

@@ -61,11 +61,11 @@ const SearchPlate = ({ dataObj }:Props) => {
     {show && <div  className={`z-30 absolute bg-darkLighter top-11 borderPlate w-full ${isLoading ? 'hidden' : 'block'}`}>
      <div className={`bg-darkLighter  md:rounded-[5px] `}>
 
-                <ul className={`flex flex-col items-start`}>
+                <ul className={`flex  flex-col items-start`}>
                     {dataObj.slice(0,3).map((film:filmT) => {
-                        return <Link key={film.id} reloadDocument={true} to={`${getLinkParams(film)}`} className="w-full"><li className=" flex flex-col w-full">
+                        return <Link key={film.id} reloadDocument={true} to={`${getLinkParams(film)}`} className="w-full"><li className=" flex flex-col w-full max-w-full">
                             <div className="flex  items-center w-full gap-2 hover:bg-bgMain">
-                                <img className="w-[55px] h-auto"  src={`${getImage(film)}`} alt="" />
+                                <img className="w-[60px] h-auto"  src={`${getImage(film)}`} alt="" />
                                 <h3 className=" poppins  text-white text-[1.1rem] pr-1">{`${getName(film)}`}</h3>
                             </div>
                             <div className="w-full bg-gray-500 h-[1px]"></div>

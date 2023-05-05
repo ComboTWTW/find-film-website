@@ -7,7 +7,7 @@ export const getFilm = (id:number | string, media:string) => {
     return fetch(link)
         .then((res) => {
             if (!res.ok) {
-                throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
+                throw new Error(`Failed to fetch:${res.status} ${res.statusText}`);
             }
             return res.json();
         })

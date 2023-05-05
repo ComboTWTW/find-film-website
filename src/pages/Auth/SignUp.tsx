@@ -58,7 +58,6 @@ const SignUp = ({loginType}:Props) => {
             }
         } else {
             setInputError(authDataValidationSignUp(authDataSignUp));
-            console.log(inputError)
         }
     }
     
