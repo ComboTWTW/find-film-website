@@ -1,5 +1,6 @@
 import { runtimeCalc } from "../../functions/runtimeCalc"
 import { filmDataT } from "../../api/getFilm"
+import Credits from "./Credits"
 
 interface Props {
     media: string,
@@ -56,9 +57,10 @@ const MediaDescr = ({ media, dataFilm }:Props) => {
 
             {dataFilm.origin_country !== undefined && <div className="flex flex-col">
                 <h2 className="text-base font-normal">Country of Origin</h2>
-                <h2 className="text-lg font-medium">{dataFilm.origin_country}</h2>
+                <h2 className="text-lg font-medium">{dataFilm.origin_country[0]}</h2>
             </div>}
             
+            <Credits media={media} id={dataFilm.id.toString()}/>
         </div>
 </div>
   )
