@@ -55,7 +55,7 @@ const MediaDescr = ({ media, dataFilm }:Props) => {
             <h2 className="text-xl font-semibold mt-2">Overview</h2>
             <p className="text-lg font-light md:-mt-3">{dataFilm.overview}</p>
 
-            {dataFilm.origin_country !== undefined && <div className="flex flex-col">
+            {dataFilm.origin_country !== undefined && <div className="flex flex-col mt-4">
                 <h2 className="text-base font-normal">Country of Origin</h2>
                 <h2 className="text-lg font-medium">{dataFilm.origin_country[0]}</h2>
             </div>}

@@ -35,13 +35,15 @@ const Cast = ({ id, media }:Props) => {
       if (media === 'movie') {
         return `${actor.character.includes("/") ? actor.character.split("/")[0].trim(): actor.character}`
       } else if (media === 'tv') {
-        return `${actor.roles?.[0].character}`
+        return `${actor.roles[0].character.includes("/") ? actor.roles[0].character.split("/")[0].trim() : actor.roles?.[0].character}`
       }
     }
 
   return (
     <div className="w-full h-auto flex-col justify-start text-start mt-6 mb-10">
-        <h3 className="poppins text-white text-4xl font-semibold">Top Billed Cast</h3>
+
+        <h3 className="poppins text-white text-4xl font-semibold md:mb-7 md:mt-1">Top Billed Cast</h3>
+
         {isFetchedAfterMount && dataCast !== undefined && <Swiper
         spaceBetween={10}
         className="w-[100wh] mt-6 flex"
@@ -53,9 +55,6 @@ const Cast = ({ id, media }:Props) => {
             },
             640: {
                 slidesPerView: 4,
-            },
-            768: {
-              slidesPerView: 5,
             },
             1200: {
               slidesPerView: 7,
