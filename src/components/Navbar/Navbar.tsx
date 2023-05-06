@@ -90,7 +90,7 @@ const Navbar = () => {
                 </div>
                   
                     {/* Medium Desktop Burger Menu */}           
-                <div className={`sm:hidden lg:hidden ${toggleBurg ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} z-50 duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center h-screen bg-darkLighter`}>
+                <div className={`sm:hidden lg:hidden ${toggleBurg ? 'md:flex left-0' : 'md:flex md:-left-full duration-500'} z-50 duration-200 absolute  top-[73px] px-24 pt-14 flex justify-center min-h-full bg-darkLighter pb-14`}>
                     <ul className='flex flex-col gap-8 items-center'>
                         {navbarLinks.map((link) => {
                             return <NavLink key={link.id} reloadDocument to={link.path}><li className='poppins text-white text-lg hover:text-[#9dadbc] '>{link.title}</li></NavLink>
@@ -100,7 +100,7 @@ const Navbar = () => {
                 </div>
 
                     {/* Mobile Burger Navbar */}
-                <div className={`md:hidden ${toggleBurg ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full h-screen absolute duration-200 pt-10 pb-16  bg-darkLighter z-50`}>
+                <div className={`md:hidden ${toggleBurg ? 'top-[73px] left-0' : 'top-[73px] -left-full'} min-w-full  absolute duration-200 pt-10 pb-16  bg-darkLighter z-50`}>
                     <ul className='flex flex-col gap-6 items-start ml-5'>
                         <div className='mb-7'>
                             {auth.currentUser !== null ? <PopUpUser username={auth.currentUser.displayName}/> : <AuthPopUp />}

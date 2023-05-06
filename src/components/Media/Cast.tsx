@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { getCast, castT } from "../../api/getCast";
+import { FreeMode } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -45,6 +45,8 @@ const Cast = ({ id, media }:Props) => {
         {isFetchedAfterMount && dataCast !== undefined && <Swiper
         spaceBetween={10}
         className="w-[100wh] mt-6 flex"
+        modules={[FreeMode]}
+        freeMode={true}
         breakpoints={{
             320: {
                 slidesPerView: 2,
@@ -65,9 +67,10 @@ const Cast = ({ id, media }:Props) => {
         {dataCast.cast.slice(0, 20).map((actor) => {
             return <SwiperSlide key={actor.id} className="flex w-full h-auto cursor-pointer rounded-[10px] flex-col bg-darkLighter poppins text-white">
                     <img className="lg:w-[180px] rounded-t-[10px] h-auto" src={`${actor.profile_path !== null ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : noImgLong}`} alt="actorPhoto" />
-                    <div className="flex flex-col p-3 rounded-[10px]">
-                        <h3 className="text-lg font-semibold">{actor.name}</h3>
+                    <div className="flex flex-col p-3 rounded-[10px] gap-1">
+                        <h3 className="text-lg font-semibold leading-snug">{actor.name}</h3>
                         <h3 className="text-sm ">{getCharacher(actor)}</h3>
+                        {media === 'tv' && <h3 className="text-sm font-semibold">{`${actor.total_episode_count} episodes`}</h3>}
                     </div>
             </SwiperSlide>
         })}
