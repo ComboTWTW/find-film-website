@@ -1,6 +1,8 @@
 import { runtimeCalc } from "../../functions/runtimeCalc"
 import { filmDataT } from "../../api/getFilm"
 import Credits from "./Credits"
+import { currencyFormat } from "../../functions/currencyFormat"
+
 
 interface Props {
     media: string,
@@ -59,6 +61,17 @@ const MediaDescr = ({ media, dataFilm }:Props) => {
                 <h2 className="text-base font-normal">Country of Origin</h2>
                 <h2 className="text-lg font-medium">{dataFilm.origin_country[0]}</h2>
             </div>}
+
+            {media === 'movie' && dataFilm.budget !== 0 && <ul className="flex flex-row gap-4 md:gap-12 mt-4 mb-10">
+                <li key={dataFilm.id} className="flex flex-col gap-1 md:gap-0">
+                    <h2 className="text-lg font-medium leading-snug md:leading-normal">Budget</h2>
+                    <h2 className="text-base font-normal">{currencyFormat(dataFilm.budget)}</h2>
+                </li>
+                <li key={dataFilm.id} className="flex flex-col gap-1 md:gap-0">
+                    <h2 className="text-lg font-medium leading-snug md:leading-normal">Revenue</h2>
+                    <h2 className="text-base font-normal">{currencyFormat(dataFilm.revenue)}</h2>
+                </li>
+            </ul>}
             
             <Credits media={media} id={dataFilm.id.toString()}/>
         </div>
