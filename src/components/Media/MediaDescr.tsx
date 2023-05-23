@@ -68,7 +68,7 @@ const MediaDescr = ({ media, dataFilm }: Props) => {
                 <ul className="flex gap-2">
                     {dataFilm.genres.slice(0, 3).map((genre) => {
                         return (
-                            <li key={genre.id} className="shrink-0">
+                            <li key={Math.random()} className="shrink-0">
                                 {genre.name},
                             </li>
                         );
@@ -91,7 +91,7 @@ const MediaDescr = ({ media, dataFilm }: Props) => {
                 >
                     « {dataFilm.tagline} »
                 </p>
-
+                {/* List Buttons */}
                 <ListButtons id={dataFilm.id} media={media} />
 
                 <h2 className="text-xl font-semibold mt-2">Overview</h2>

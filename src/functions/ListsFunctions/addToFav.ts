@@ -19,8 +19,8 @@ export const addToFav = async (id: number, media: string) => {
                         media: media,
                     }),
                 });
-                return new Promise<string>((resolve, reject) => {
-                    resolve("removed");
+                return new Promise<boolean>((resolve, reject) => {
+                    resolve(false);
                 });
             } catch (error) {
                 throw error;
@@ -33,8 +33,8 @@ export const addToFav = async (id: number, media: string) => {
                     media: media,
                 }),
             });
-            return new Promise<string>((resolve, reject) => {
-                resolve("added");
+            return new Promise<boolean>((resolve, reject) => {
+                resolve(true);
             });
         } catch (error) {
             throw error;
@@ -56,8 +56,8 @@ export const addToWL = async (id: number, media: string) => {
                         media: media,
                     }),
                 });
-                return new Promise<string>((resolve, reject) => {
-                    resolve("removed");
+                return new Promise<boolean>((resolve, reject) => {
+                    resolve(false);
                 });
             } catch (error) {
                 throw error;
@@ -70,13 +70,50 @@ export const addToWL = async (id: number, media: string) => {
                     media: media,
                 }),
             });
-            return new Promise<string>((resolve, reject) => {
-                resolve("added");
+            return new Promise<boolean>((resolve, reject) => {
+                resolve(true);
             });
         } catch (error) {
             throw error;
         }
     } else {
         return "Login to add to Watch Later";
+    }
+};
+
+export const addToCustom = async (id: number, media: string, list: string) => {
+    if (auth.currentUser) {
+        const docRef = doc(db, "users", auth.currentUser.uid);
+        const arrCustom = (await getDoc(docRef)).data()?.[list];
+        if (arrCustom.some((obj: any) => obj.id === id)) {
+            try {
+                await updateDoc(docRef, {
+                    [list]: arrayRemove({
+                        id: id,
+                        media: media,
+                    }),
+                });
+                return new Promise<boolean>((resolve, reject) => {
+                    resolve(false);
+                });
+            } catch (error) {
+                throw error;
+            }
+        }
+        try {
+            await updateDoc(docRef, {
+                [list]: arrayUnion({
+                    id: id,
+                    media: media,
+                }),
+            });
+            return new Promise<boolean>((resolve, reject) => {
+                resolve(true);
+            });
+        } catch (error) {
+            throw error;
+        }
+    } else {
+        return `Login to add to ${list} list`;
     }
 };
