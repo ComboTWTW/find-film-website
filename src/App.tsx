@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import { auth } from "./config/firebase"
 import { onAuthStateChanged } from "firebase/auth";
 import Movie from './pages/Movie'
+import Profile from './pages/Profile'
 
 const App = () => {
 
@@ -44,7 +45,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient} >
     <Router >
-      <div className='overflow-hidden bg-bgMain min-h-screen'>
+      <div className='overflow-hidden w-full bg-bgMain min-h-screen'>
         <Navbar />
           <Routes>
             <Route path={'/'} element={<Home />}/>
@@ -56,9 +57,12 @@ const App = () => {
               {/* Individual pages */}
               <Route path={'/movie/?'} element={<Movie />}/>
               <Route path={'/tv/?'} element={<Movie />}/>
-              {/* Private */}
+              {/* Private (Show only if NOT logged in) */}
             <Route path={'/login'} element={isSigned === false ? <Login loginType={loginTypes.login}/> : isSigned === true && <Navigate to="/" />}/>
             <Route path={'/signup'} element={isSigned === false ? <SignUp loginType={loginTypes.signup}/> : isSigned === true && <Navigate to="/" />}/>
+              {/* Private (Show only if logged in) */}
+            <Route path={'/profile'} element={isSigned === true ? <Profile/> : isSigned === false && <Navigate to="/" />}/>
+
 
             <Route path={'*'} element={<h1>404 Not Found</h1>}/>
           </Routes>

@@ -68,3 +68,22 @@
   height: 4rem;
   color: white;
 }
+
+
+.heartButton:active {
+  color: red;
+}
+
+@media (min-width: 768px) {
+  .mediaButton:active {
+    transform: scale(0.93);
+  }
+}
+
+
+
+
+
+
+
+
