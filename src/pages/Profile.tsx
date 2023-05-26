@@ -19,7 +19,7 @@ const Profile = () => {
                 getLists();
             }
         });
-    }, []);
+    }, [currentList]);
 
     return (
         <div className="w-full flex justify-center">
