@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import CurrentList from "../components/Profile/CurrentList";
 
 const Profile = () => {
     const [lists, setLists] = useState<object | undefined>();
+    const [currentList, setCurrentList] = useState<string>("favorites");
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -27,9 +29,19 @@ const Profile = () => {
                 </header>
 
                 {lists !== undefined && (
-                    <div className="flex flex-row w-full mt-10">
-                        <div className="flex flex-col w-full">
-                            <Lists lists={lists} />
+                    <div className="flex flex-col md:flex-row  mt-10  md:gap-10">
+                        <div className="flex flex-col md:min-w-[300px]">
+                            <Lists
+                                lists={lists}
+                                setCurrentLists={setCurrentList}
+                            />
+                        </div>
+
+                        <div className="w-full mt-5 md:mt-0">
+                            <CurrentList
+                                lists={lists}
+                                currentList={currentList}
+                            />
                         </div>
                     </div>
                 )}

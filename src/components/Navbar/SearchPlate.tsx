@@ -68,7 +68,10 @@ const SearchPlate = ({ dataObj }: Props) => {
                                     <Link
                                         key={film.id}
                                         reloadDocument={true}
-                                        to={`${getLinkParams(film)}`}
+                                        to={`${getLinkParams(
+                                            film,
+                                            film.media_type
+                                        )}`}
                                         className="w-full"
                                     >
                                         <li className=" flex flex-col w-full max-w-full">

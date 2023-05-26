@@ -14,9 +14,10 @@ import { auth, db } from "../../config/firebase";
 
 interface Props {
     lists: object;
+    setCurrentLists: Function;
 }
 
-const Lists = ({ lists }: Props) => {
+const Lists = ({ lists, setCurrentLists }: Props) => {
     const [newLists, setNewLists] = useState<object>(lists);
     const [toggleCreateList, setToggleCreateList] = useState<boolean>(false);
     const [listInput, setListInput] = useState<string>("");
@@ -63,17 +64,18 @@ const Lists = ({ lists }: Props) => {
     };
 
     return (
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-2">
             <h2 className="poppins text-white text-3xl md:text-4xl font-medium">
                 Your Lists
             </h2>
 
-            <ul className="flex flex-col mt-3  gap-3 md:max-w-[300px]">
+            <ul className="flex flex-col mt-3  gap-3 ">
                 {Object.keys(newLists).map((list) => {
                     return (
                         <li
+                            onClick={() => setCurrentLists(list)}
                             key={Math.random()}
-                            className="poppins text-white text-xl flex items-center justify-between bg-darkLighter rounded-[5px] px-4 py-2 cursor-pointer"
+                            className=" poppins text-white text-xl flex items-center justify-between bg-darkLighter rounded-[5px] px-4 py-2 cursor-pointer"
                         >
                             <h3>
                                 {list === "watchLater"

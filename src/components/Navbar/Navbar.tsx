@@ -164,7 +164,9 @@ const Navbar = () => {
                         })}
                     </ul>
                     <div
-                        className="bg-none top-0 h-screen w-screen left-[100%] absolute"
+                        className={`${
+                            !toggleBurg && "hidden"
+                        } bg-none top-0 h-screen w-screen left-[100%] absolute`}
                         onClick={() => setToggleBurg(false)}
                     ></div>
                 </div>
