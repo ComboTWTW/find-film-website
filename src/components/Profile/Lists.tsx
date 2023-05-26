@@ -61,6 +61,7 @@ const Lists = ({ lists, setCurrentLists }: Props) => {
                 setNewLists({ ...newLists, [list]: null });
             }
         }
+        setCurrentLists("favorites");
     };
 
     return (
