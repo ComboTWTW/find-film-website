@@ -44,26 +44,28 @@ const ListButtons = ({ id, media }: Props) => {
     useOnClickOutside(createListRef, () => setToggleCreateList(false));
 
     const handleFavClick = async (id: number, media: string) => {
+        setToggleFavorite(true);
         try {
             if ((await addToFav(id, media)) === true) {
-                setToggleFavorite(true);
             } else {
                 setToggleFavorite(false);
             }
         } catch (error) {
             console.log(error);
+            setToggleFavorite(false);
         }
     };
 
     const handleWlClick = async (id: number, media: string) => {
+        setToggleWatchLater(true);
         try {
             if ((await addToWL(id, media)) === true) {
-                setToggleWatchLater(true);
             } else {
                 setToggleWatchLater(false);
             }
         } catch (error) {
             console.log(error);
+            setToggleWatchLater(false);
         }
     };
 
