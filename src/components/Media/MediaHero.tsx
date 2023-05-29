@@ -20,7 +20,7 @@ const MediaHero = ({ media, dataFilm }: Props) => {
                 alt="Backdrop"
             />
             <div
-                className={`min-w-full relative flex py-5 justify-center bg-black bg-opacity-80 md:bg-opacity-95`}
+                className={`min-w-full relative flex py-5 justify-center md:bg-black bg-opacity-80 md:bg-opacity-95`}
             >
                 <div className="max-w-[1300px] flex gap-5 md:gap-10 px-4 ">
                     {/* Poster */}
