@@ -6,6 +6,7 @@ import { filmDataT } from "../api/getFilm";
 import MediaHero from "../components/Media/MediaHero";
 import MediaDescr from "../components/Media/MediaDescr";
 import Cast from "../components/Media/Cast";
+import MediaContent from "../components/Media/MediaContent";
 
 const Movie = () => {
     const navigate = useNavigate();
@@ -44,6 +45,8 @@ const Movie = () => {
                     </div>
 
                     <Cast id={dataFilm.id.toString()} media={media} />
+
+                    <MediaContent id={dataFilm.id.toString()} media={media} />
                 </div>
             )}
         </div>
