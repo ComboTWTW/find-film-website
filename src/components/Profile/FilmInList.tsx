@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getFilm, filmDataT } from "../../api/getFilm";
 import { noImgLong } from "../../assets";
-import { GoTrashcan } from "react-icons/all";
+
 import { NavLink } from "react-router-dom";
 import { getLinkParams } from "../../functions/SearchBar/getLinkParams";
 import { db, auth } from "../../config/firebase";
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { IoTrashBinSharp } from "react-icons/io5";
 
 interface Props {
     film: { id: number; media: string };
@@ -83,7 +84,7 @@ const FilmInList = ({ film, setNewLists, newLists, currentList }: Props) => {
                     onClick={() => handleRemoveClick()}
                     className="absolute rounded-full bg-white p-1 right-2 top-2"
                 >
-                    <GoTrashcan size={20} />
+                    <IoTrashBinSharp size={20} />
                 </button>
             )}
             {isSuccessFilm && (
