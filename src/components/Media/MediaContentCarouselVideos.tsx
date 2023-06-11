@@ -27,9 +27,13 @@ const MediaContentCarouselVideos = ({ dataVideo }: Props) => {
     const [videoId, setVideoId] = useState<string>("");
 
     const handleVideoClick = (vidId: string) => {
-        setVideoId(vidId);
         setToggleVideo(true);
+        setVideoId(vidId);
     };
+
+    useEffect(() => {
+        console.log("toggleVid is " + toggleVideo);
+    }, [toggleVideo]);
 
     return (
         <div className="w-full relative">
@@ -58,16 +62,18 @@ const MediaContentCarouselVideos = ({ dataVideo }: Props) => {
                             <SwiperSlide
                                 onClick={() => handleVideoClick(video.key)}
                             >
-                                <img
-                                    src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
-                                    alt="Video Thumbnail"
-                                    className="opacity-60 hover:opacity-100 hover:duration-200  cursor-pointer"
-                                />
-                                <IoPlayCircleOutline
-                                    color="white"
-                                    size={90}
-                                    className="absolute top-0 left-0 bottom-0 right-0 m-auto cursor-pointer"
-                                />
+                                <div className="opacity-60 duration-200 hover:opacity-100 hover:duration-200  cursor-pointer">
+                                    <img
+                                        src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
+                                        alt="Video Thumbnail"
+                                        className=""
+                                    />
+                                    <IoPlayCircleOutline
+                                        color="white"
+                                        size={90}
+                                        className="absolute top-0 left-0 bottom-0 right-0 m-auto cursor-pointer"
+                                    />
+                                </div>
                             </SwiperSlide>
                         </li>
                     );
