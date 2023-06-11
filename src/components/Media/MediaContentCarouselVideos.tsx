@@ -31,10 +31,6 @@ const MediaContentCarouselVideos = ({ dataVideo }: Props) => {
         setVideoId(vidId);
     };
 
-    useEffect(() => {
-        console.log("toggleVid is " + toggleVideo);
-    }, [toggleVideo]);
-
     return (
         <div className="w-full relative">
             <Swiper
