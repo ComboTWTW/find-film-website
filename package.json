@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.8.0",
+    "react-lite-youtube-embed": "^2.3.52",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.10.0",
     "react-youtube": "^10.1.0",
