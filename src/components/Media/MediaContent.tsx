@@ -65,7 +65,7 @@ const MediaContent = ({ id, media }: Props) => {
             </div>
             {/* Images Slider */}
             {isRefetchingImages ? (
-                <CircularProgress size={50} className="mt-5" />
+                <CircularProgress size={50} />
             ) : (
                 isSuccessImages &&
                 currentMedia !== "Videos" && (
@@ -81,7 +81,7 @@ const MediaContent = ({ id, media }: Props) => {
             )}
             {/* Videos Slider */}
             {isRefetchingVideo ? (
-                <CircularProgress size={50} className="mt-5" />
+                <CircularProgress size={50} />
             ) : (
                 isSuccessVideo &&
                 currentMedia === "Videos" &&

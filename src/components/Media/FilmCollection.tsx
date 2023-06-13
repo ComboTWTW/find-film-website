@@ -63,7 +63,7 @@ const FilmCollection = ({ collectionID }: Props) => {
                             })}
                         </h3>
 
-                        <div className="flex max-w-full">
+                        <div className="flex max-w-full mt-2">
                             <Swiper
                                 className="flex max-w-full"
                                 spaceBetween={10}
@@ -73,7 +73,8 @@ const FilmCollection = ({ collectionID }: Props) => {
                                         slidesPerView: 2,
                                     },
                                     640: {
-                                        slidesPerView: 4,
+                                        slidesPerView:
+                                            dataCollection.parts.length,
                                         allowTouchMove: false,
                                     },
                                 }}
