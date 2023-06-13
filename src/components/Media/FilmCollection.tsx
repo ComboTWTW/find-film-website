@@ -81,7 +81,12 @@ const FilmCollection = ({ collectionID }: Props) => {
                             >
                                 {dataCollection.parts.map((part) => {
                                     return (
-                                        <SwiperSlide className="md:max-w-[180px] ">
+                                        <SwiperSlide
+                                            className={`md:max-w-[180px] ${
+                                                dataCollection.parts.length <
+                                                    6 && "lg:min-w-[180px]"
+                                            }`}
+                                        >
                                             <NavLink
                                                 key={part.id + Math.random()}
                                                 reloadDocument={true}
