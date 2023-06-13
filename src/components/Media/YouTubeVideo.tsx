@@ -24,18 +24,4 @@ const YouTubeVideo = ({ videoId, setToggleVideo }: Props) => {
     );
 };
 
-{
-    /*
-     ref={toggleVideoRef}
-
-
-    <YouTube
-    videoId={videoId}
-    opts={{
-        innerHeight: 1080,
-        innerWidth: 1920,
-    }}
-/>; */
-}
-
 export default YouTubeVideo;
