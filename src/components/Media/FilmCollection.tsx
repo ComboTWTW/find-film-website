@@ -27,7 +27,7 @@ const FilmCollection = ({ collectionID }: Props) => {
     }, []);
 
     return (
-        <div className="w-full text-start mt-8">
+        <div className="w-full text-start mt-8 ">
             {!isSuccessCollection ? (
                 <CircularProgress size={50} />
             ) : (
@@ -38,7 +38,7 @@ const FilmCollection = ({ collectionID }: Props) => {
                         backgroundSize: "cover",
                     }}
                 >
-                    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80"></div>
+                    <div className="rounded-[5px] absolute top-0 left-0 w-full h-full bg-black bg-opacity-80"></div>
                     <div className="relative flex flex-col md:items-start">
                         <h2 className=" poppins text-white text-2xl md:text-4xl font-semibold">
                             Belongs to {dataCollection.name}
@@ -63,24 +63,26 @@ const FilmCollection = ({ collectionID }: Props) => {
                             })}
                         </h3>
 
-                        <div className="flex ">
+                        <div className="flex max-w-full">
                             <Swiper
-                                className="flex"
+                                className="flex max-w-full"
                                 spaceBetween={10}
+                                slidesPerView={5}
                                 breakpoints={{
                                     320: {
                                         slidesPerView: 2,
                                     },
                                     640: {
-                                        width: 170,
+                                        slidesPerView: 4,
                                         allowTouchMove: false,
                                     },
                                 }}
                             >
                                 {dataCollection.parts.map((part) => {
                                     return (
-                                        <SwiperSlide>
+                                        <SwiperSlide className="md:max-w-[180px] ">
                                             <NavLink
+                                                key={part.id + Math.random()}
                                                 reloadDocument={true}
                                                 to={`/movie/?id=${
                                                     part.id
@@ -93,7 +95,7 @@ const FilmCollection = ({ collectionID }: Props) => {
                                                 <img
                                                     src={`https://image.tmdb.org/t/p/original${part.poster_path}`}
                                                     alt="Poster"
-                                                    className="mt-2 rounded-[5px]"
+                                                    className="md:max-w-[180px] w-full mt-2 rounded-[5px]"
                                                 />
                                             </NavLink>
                                         </SwiperSlide>
