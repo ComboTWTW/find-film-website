@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getFilm } from "../api/getFilm";
+import { getFilm, filmDataT } from "../api/getFilm";
 import { useQuery } from "react-query";
-import { filmDataT } from "../api/getFilm";
 import MediaHero from "../components/Media/MediaHero";
 import MediaDescr from "../components/Media/MediaDescr";
 import Cast from "../components/Media/Cast";
 import MediaContent from "../components/Media/MediaContent";
+import FilmCollection from "../components/Media/FilmCollection";
 
 const Movie = () => {
     const navigate = useNavigate();
@@ -47,6 +47,13 @@ const Movie = () => {
                     <Cast id={dataFilm.id.toString()} media={media} />
 
                     <MediaContent id={dataFilm.id.toString()} media={media} />
+
+                    {dataFilm.belongs_to_collection !== undefined &&
+                        dataFilm.belongs_to_collection !== null && (
+                            <FilmCollection
+                                collectionID={dataFilm.belongs_to_collection.id}
+                            />
+                        )}
                 </div>
             )}
         </div>
