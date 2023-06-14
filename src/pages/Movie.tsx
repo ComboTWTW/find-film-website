@@ -7,13 +7,18 @@ import MediaDescr from "../components/Media/MediaDescr";
 import Cast from "../components/Media/Cast";
 import MediaContent from "../components/Media/MediaContent";
 import FilmCollection from "../components/Media/FilmCollection";
+import Recomendations from "../components/Media/Recomendations";
 
 const Movie = () => {
     const navigate = useNavigate();
 
     const [searchParams] = useSearchParams();
-    const id = searchParams.get("id");
-    const media = location.pathname.split("/")[1];
+
+    const id: string =
+        typeof searchParams.get("id") === "string"
+            ? `${searchParams.get("id")}`
+            : "";
+    const media: string = location.pathname.split("/")[1];
 
     const {
         data: dataFilm,
@@ -54,6 +59,8 @@ const Movie = () => {
                                 collectionID={dataFilm.belongs_to_collection.id}
                             />
                         )}
+
+                    <Recomendations id={id} media={media} />
                 </div>
             )}
         </div>
