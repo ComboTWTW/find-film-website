@@ -8,6 +8,7 @@ import Cast from "../components/Media/Cast";
 import MediaContent from "../components/Media/MediaContent";
 import FilmCollection from "../components/Media/FilmCollection";
 import Recomendations from "../components/Media/Recomendations";
+import SeasonsTV from "../components/Media/SeasonsTV";
 
 const Movie = () => {
     const navigate = useNavigate();
@@ -50,6 +51,8 @@ const Movie = () => {
                     </div>
 
                     <Cast id={dataFilm.id.toString()} media={media} />
+
+                    {media === "tv" && <SeasonsTV id={id} media={media} />}
 
                     <MediaContent id={dataFilm.id.toString()} media={media} />
 
