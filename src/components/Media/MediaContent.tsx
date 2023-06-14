@@ -40,7 +40,7 @@ const MediaContent = ({ id, media }: Props) => {
     }, [currentMedia]);
 
     return (
-        <div className="w-full flex-col text-start">
+        <div className="w-full flex-col text-start mt-7">
             <div className="flex flex-col items-start md:flex-row md:items-center md:gap-10 gap-1">
                 <h3 className="poppins text-white text-4xl font-semibold">
                     Media

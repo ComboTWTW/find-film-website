@@ -1,7 +1,7 @@
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 export const getRecomendations = (id: string, media: string) => {
-    const link = `https://api.themoviedb.org/3/${media}/${id}/recommendations?api_key=${apiKey}`;
+    const link = `https://api.themoviedb.org/3/${media}/${id}/similar?api_key=${apiKey}`;
 
     return fetch(link)
         .then((res) => res.json())

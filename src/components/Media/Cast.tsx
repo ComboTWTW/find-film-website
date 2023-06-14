@@ -44,7 +44,7 @@ const Cast = ({ id, media }: Props) => {
     };
 
     return (
-        <div className="w-full h-auto flex-col justify-start text-start mt-6 mb-10">
+        <div className="w-full h-auto flex-col justify-start text-start my-6">
             <h3 className="poppins text-white text-4xl font-semibold md:mb-7 md:mt-1">
                 Top Billed Cast
             </h3>
