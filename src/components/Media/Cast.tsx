@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import { useQuery } from "react-query";
 import { useEffect } from "react";
 import { noImgLong } from "../../assets";
+import { NavLink } from "react-router-dom";
 
 interface Props {
     id: string;
@@ -73,26 +74,38 @@ const Cast = ({ id, media }: Props) => {
                                 key={actor.id}
                                 className="flex w-full h-auto cursor-pointer rounded-[10px] flex-col bg-darkLighter poppins text-white"
                             >
-                                <img
-                                    className="lg:w-[180px] rounded-t-[10px] h-auto"
-                                    src={`${
-                                        actor.profile_path !== null
-                                            ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
-                                            : noImgLong
-                                    }`}
-                                    alt="actorPhoto"
-                                />
-                                <div className="flex flex-col p-3 rounded-[10px] gap-1">
-                                    <h3 className="text-lg font-semibold leading-snug">
-                                        {actor.name}
-                                    </h3>
-                                    <h3 className="text-sm ">
-                                        {getCharacher(actor)}
-                                    </h3>
-                                    {media === "tv" && (
-                                        <h3 className="text-sm font-semibold">{`${actor.total_episode_count} episodes`}</h3>
-                                    )}
-                                </div>
+                                <NavLink
+                                    reloadDocument={true}
+                                    target="_blank"
+                                    to={`/person/?id=${
+                                        actor.id
+                                    }&name=${actor.name
+                                        .split(" ")
+                                        .join("-")
+                                        .toLowerCase()}`}
+                                >
+                                    <img
+                                        className="lg:w-[180px] rounded-t-[10px] h-auto"
+                                        src={`${
+                                            actor.profile_path !== null
+                                                ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                                                : noImgLong
+                                        }`}
+                                        alt="actorPhoto"
+                                    />
+
+                                    <div className="flex flex-col p-3 rounded-[10px] gap-1">
+                                        <h3 className="text-lg font-semibold leading-snug">
+                                            {actor.name}
+                                        </h3>
+                                        <h3 className="text-sm ">
+                                            {getCharacher(actor)}
+                                        </h3>
+                                        {media === "tv" && (
+                                            <h3 className="text-sm font-semibold">{`${actor.total_episode_count} episodes`}</h3>
+                                        )}
+                                    </div>
+                                </NavLink>
                             </SwiperSlide>
                         );
                     })}
