@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { getPerson, personT } from "../api/getPerson";
 import { getPersonCredits, personCreditsT } from "../api/getPersonCredits";
 import { useQuery } from "react-query";
+import PersonalInfo from "../components/Person/PersonalInfo";
+import { CircularProgress } from "@mui/material";
 
 const Person = () => {
     const navigate = useNavigate();
@@ -33,8 +35,14 @@ const Person = () => {
     }, []);
 
     return (
-        <div className="w-full  flex justify-center text-center">
-            <div className="w-full max-w-[1300px] px-4 flex flex-col  items-center md:justify-center"></div>
+        <div className="w-full  flex justify-center text-center mt-3">
+            <div className="w-full max-w-[1300px] px-4 flex flex-col md:flex-row">
+                {!isSuccessPerson ? (
+                    <CircularProgress size={65} />
+                ) : (
+                    <PersonalInfo dataPerson={dataPerson} />
+                )}
+            </div>
         </div>
     );
 };
