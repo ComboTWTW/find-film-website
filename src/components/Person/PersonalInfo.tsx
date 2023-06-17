@@ -7,7 +7,7 @@ interface Props {
 
 const PersonalInfo = ({ dataPerson }: Props) => {
     return (
-        <div className="flex flex-col text-start  md:items-start  max-w-[100%] md:max-w-[30%] lg:max-w-[25%] gap-4">
+        <div className="flex flex-col text-start  md:items-start   gap-4">
             <div className="relative md:static self-center min-h-[240px] max-w-[180px] min-w-[180px] md:max-w-full">
                 <img
                     className={`${

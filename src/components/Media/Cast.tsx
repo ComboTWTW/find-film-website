@@ -53,7 +53,7 @@ const Cast = ({ id, media }: Props) => {
             {isFetchedAfterMount && dataCast !== undefined && (
                 <Swiper
                     spaceBetween={10}
-                    className="w-[100wh] mt-6 flex"
+                    className=" mt-6 flex"
                     modules={[FreeMode]}
                     freeMode={true}
                     breakpoints={{

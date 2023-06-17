@@ -6,6 +6,8 @@ import { getPersonCredits, personCreditsT } from "../api/getPersonCredits";
 import { useQuery } from "react-query";
 import PersonalInfo from "../components/Person/PersonalInfo";
 import { CircularProgress } from "@mui/material";
+import Biography from "../components/Person/Biography";
+import KnownFor from "../components/Person/KnownFor";
 
 const Person = () => {
     const navigate = useNavigate();
@@ -36,11 +38,22 @@ const Person = () => {
 
     return (
         <div className="w-full  flex justify-center text-center mt-3">
-            <div className="w-full max-w-[1300px] px-4 flex flex-col md:flex-row">
+            <div className="w-full max-w-[1300px] px-4 flex flex-col md:flex-row md:gap-10 ">
+                {/* Personal Information */}
                 {!isSuccessPerson ? (
                     <CircularProgress size={65} />
                 ) : (
-                    <PersonalInfo dataPerson={dataPerson} />
+                    <div className="max-w-[100%] md:max-w-[25%] md:min-w-[25%]">
+                        <PersonalInfo dataPerson={dataPerson} />
+                    </div>
+                )}
+                {/* Biography and Known For Swiper*/}
+                {isSuccessPersonCredits && isSuccessPerson && (
+                    <div className="flex flex-col lg:mt-14 text-start md:max-w-[68%] lg:max-w-[72%]">
+                        <Biography dataPerson={dataPerson} />
+
+                        <KnownFor dataPersonCredits={dataPersonCredits} />
+                    </div>
                 )}
             </div>
         </div>
