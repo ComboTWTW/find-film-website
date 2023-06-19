@@ -13,6 +13,7 @@ module.exports = {
         bgMain: '#100e19',
         darkLighter: '#312b45',
         lightGray: '#878c9b',
+        
       }
     },
     screens: {
