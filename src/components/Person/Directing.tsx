@@ -13,11 +13,11 @@ interface Props {
     dataPersonCredits: personCreditsT;
 }
 
-const KnownFor = ({ dataPersonCredits }: Props) => {
+const Directing = ({ dataPersonCredits }: Props) => {
     return (
-        <div className="flex flex-col w-full mt-8 ">
+        <div className="flex flex-col w-full mt-4 ">
             <h2 className="poppins text-xl font-semibold text-white ">
-                Known for
+                Directing
             </h2>
 
             <Swiper
@@ -40,7 +40,7 @@ const KnownFor = ({ dataPersonCredits }: Props) => {
                     },
                 }}
             >
-                {dataPersonCredits.cast.map((film) => {
+                {dataPersonCredits.crew.map((film) => {
                     return (
                         <SwiperSlide>
                             <NavLink
@@ -64,24 +64,10 @@ const KnownFor = ({ dataPersonCredits }: Props) => {
                                         alt="Poster"
                                     />
                                 </div>
-                                <h4
-                                    title={
-                                        film.media_type === "movie"
-                                            ? film.title
-                                            : film.name
-                                    }
-                                    className="twoLines text-ellipsis overflow-hidden  poppins text-white text-lg font-medium mt-1 leading-tight"
-                                >
+                                <h4 className="poppins text-white text-lg font-medium mt-1 leading-tight">
                                     {film.media_type === "movie"
                                         ? film.title
                                         : film.name}
-                                </h4>
-                                <h4
-                                    className={`poppins text-white text-sm mt-1 ${
-                                        film.character === "" && "hidden"
-                                    }`}
-                                >
-                                    As {film.character.split(" /")[0]}
                                 </h4>
                             </NavLink>
                         </SwiperSlide>
@@ -92,4 +78,4 @@ const KnownFor = ({ dataPersonCredits }: Props) => {
     );
 };
 
-export default KnownFor;
+export default Directing;

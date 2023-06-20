@@ -8,6 +8,7 @@ import PersonalInfo from "../components/Person/PersonalInfo";
 import { CircularProgress } from "@mui/material";
 import Biography from "../components/Person/Biography";
 import KnownFor from "../components/Person/KnownFor";
+import Directing from "../components/Person/Directing";
 
 const Person = () => {
     const navigate = useNavigate();
@@ -49,10 +50,16 @@ const Person = () => {
                 )}
                 {/* Biography and Known For Swiper*/}
                 {isSuccessPersonCredits && isSuccessPerson && (
-                    <div className="flex flex-col lg:mt-14 text-start md:max-w-[68%] lg:max-w-[72%]">
+                    <div className="flex flex-col lg:mt-14 text-start md:max-w-[68%] lg:min-w-[72%]">
                         <Biography dataPerson={dataPerson} />
 
-                        <KnownFor dataPersonCredits={dataPersonCredits} />
+                        {dataPersonCredits.cast.length !== 0 && (
+                            <KnownFor dataPersonCredits={dataPersonCredits} />
+                        )}
+
+                        {dataPersonCredits.crew.length !== 0 && (
+                            <Directing dataPersonCredits={dataPersonCredits} />
+                        )}
                     </div>
                 )}
             </div>
