@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getFilm, filmDataT } from "../../api/getFilm";
 import { CircularProgress } from "@mui/material";
+import { noImage } from "../../assets";
 
 interface Props {
     id: string;
@@ -57,9 +58,13 @@ const SeasonsTV = ({ id, media }: Props) => {
                                 }`}
                             >
                                 <img
-                                    src={`https://image.tmdb.org/t/p/original${season.poster_path}`}
+                                    src={`${
+                                        season.poster_path !== null
+                                            ? `https://image.tmdb.org/t/p/original${season.poster_path}`
+                                            : noImage
+                                    }`}
                                     alt="Season Poster"
-                                    className="rounded-l-[5px] max-h-[170px] md:max-h-[200px]"
+                                    className={`rounded-l-[5px] max-w-[113px]  md:max-w-[133px]  object-cover max-h-[170px] md:min-h-[200px] `}
                                 />
                                 <div className="flex flex-col p-5">
                                     <h3 className="poppins text-white text-2xl">
@@ -67,12 +72,14 @@ const SeasonsTV = ({ id, media }: Props) => {
                                             ? "Specials"
                                             : `Season ${season.season_number}`}
                                     </h3>
-                                    <h3 className="poppins text-white text-lg">
-                                        Premiered on{" "}
-                                        <span className="font-semibold">
-                                            {season.air_date.slice(0, 4)}
-                                        </span>
-                                    </h3>
+                                    {season.air_date !== null && (
+                                        <h3 className="poppins text-white text-lg">
+                                            Premiered on{" "}
+                                            <span className="font-semibold">
+                                                {season.air_date.slice(0, 4)}
+                                            </span>
+                                        </h3>
+                                    )}
                                     <h3 className="poppins text-white text-lg">
                                         <span className="font-semibold">
                                             {season.episode_count}
