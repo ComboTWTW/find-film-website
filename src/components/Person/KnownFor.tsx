@@ -1,6 +1,7 @@
 import { personCreditsT } from "../../api/getPersonCredits";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper";
+import { useEffect, useState } from "react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -14,6 +15,26 @@ interface Props {
 }
 
 const KnownFor = ({ dataPersonCredits }: Props) => {
+    const [sortedCast, setSortedCast] = useState<personCreditsT["cast"]>(
+        dataPersonCredits.cast
+            .sort((a, b) => {
+                return b.popularity - a.popularity;
+            })
+            .reduce((uniqueArray: personCreditsT["cast"], obj) => {
+                // Check if the ID already exists in the uniqueArray
+                const isDuplicate = uniqueArray.some(
+                    (item) => item.id === obj.id
+                );
+
+                // If it's a new ID, add it to the uniqueArray
+                !isDuplicate && uniqueArray.push(obj);
+
+                return uniqueArray;
+            }, [])
+    );
+
+    console.log(sortedCast);
+
     return (
         <div className="flex flex-col w-full mt-8 ">
             <h2 className="poppins text-xl font-semibold text-white ">
@@ -40,7 +61,7 @@ const KnownFor = ({ dataPersonCredits }: Props) => {
                     },
                 }}
             >
-                {dataPersonCredits.cast.map((film) => {
+                {sortedCast.map((film) => {
                     return (
                         <SwiperSlide>
                             <NavLink
@@ -51,6 +72,7 @@ const KnownFor = ({ dataPersonCredits }: Props) => {
                                 }`}
                                 reloadDocument={true}
                                 target="_blank"
+                                key={film.id}
                                 className=" rounded-[5px] h-auto"
                             >
                                 <div className="relative w-auto h-[250px] md:h-[250px] lg:h-[260px] ">
