@@ -15,6 +15,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Movie from "./pages/Movie";
 import Profile from "./pages/Profile";
 import Person from "./pages/Person";
+import MoviesShows from "./pages/MoviesShows";
 
 const App = () => {
     const queryClient = new QueryClient({
@@ -50,14 +51,8 @@ const App = () => {
                     <Navbar />
                     <Routes>
                         <Route path={"/"} element={<Home />} />
-                        <Route
-                            path={"/movies"}
-                            element={<h1 className="text-white">movies</h1>}
-                        />
-                        <Route
-                            path={"/shows"}
-                            element={<h1 className="text-white">shows</h1>}
-                        />
+                        <Route path={"/movies"} element={<MoviesShows />} />
+                        <Route path={"/TV-Shows"} element={<MoviesShows />} />
                         <Route
                             path={"/people"}
                             element={<h1 className="text-white">people</h1>}
