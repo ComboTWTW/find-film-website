@@ -35,6 +35,9 @@ const Navbar = () => {
         });
     }, []);
 
+    const [activeLink, setActiveLink] = useState("");
+    const [showSubLinks, setShowSubLinks] = useState<boolean>(false);
+
     return (
         <nav className="w-full relative flex justify-center items-center">
             <div className="w-full flex max-w-[1300px] justify-center md:justify-between md:px-6 sm:p-4 lg:p-4">
@@ -66,14 +69,65 @@ const Navbar = () => {
                     {/* Link for Desktop */}
                     <ul className="hidden lg:flex flex-row gap-8 items-center">
                         {navbarLinks.map((link) => {
+                            const isLinkActive = activeLink === link.id;
+                            const isNavLinkDisabled =
+                                link.id !== "movies" && link.id !== "tvShows"
+                                    ? false
+                                    : true;
                             return (
                                 <NavLink
-                                    key={link.id}
-                                    reloadDocument
+                                    onClick={(event) => {
+                                        if (isNavLinkDisabled) {
+                                            event.preventDefault();
+                                        }
+                                    }}
                                     to={link.path}
+                                    reloadDocument={true}
                                 >
-                                    <li className="poppins text-white text-lg hover:text-[#ffffff7a] ">
-                                        {link.title}
+                                    <li
+                                        onMouseEnter={() => {
+                                            setShowSubLinks(true);
+                                            setActiveLink(link.id);
+                                        }}
+                                        onMouseLeave={() =>
+                                            setShowSubLinks(false)
+                                        }
+                                        className="relative poppins text-white text-lg  "
+                                        key={link.id}
+                                    >
+                                        <h4 className="cursor-pointer py-1">
+                                            {link.title}
+                                        </h4>
+                                        <ul
+                                            className={`
+                                        ${!isLinkActive && "hidden"}
+                                        ${
+                                            !showSubLinks && "hidden"
+                                        } z-[5] absolute w-fit   flex flex-col gap-[2px] top-full bg-darkLighter py-3 rounded-[5px] ${
+                                                link.id !== "movies" &&
+                                                link.id !== "tvShows" &&
+                                                "hidden"
+                                            }`}
+                                        >
+                                            {link.subPage?.map((subLink) => {
+                                                return (
+                                                    <NavLink
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                        }}
+                                                        reloadDocument={true}
+                                                        to={subLink.path}
+                                                    >
+                                                        <li
+                                                            key={link.id}
+                                                            className="  px-5  whitespace-nowrap relative poppins text-white text-lg hover:text-[#ffffff7a] cursor-pointer"
+                                                        >
+                                                            {subLink?.title}
+                                                        </li>
+                                                    </NavLink>
+                                                );
+                                            })}
+                                        </ul>
                                     </li>
                                 </NavLink>
                             );
@@ -150,14 +204,65 @@ const Navbar = () => {
                 >
                     <ul className="flex flex-col gap-8 items-center">
                         {navbarLinks.map((link) => {
+                            const isLinkActive = activeLink === link.id;
+                            const isNavLinkDisabled =
+                                link.id !== "movies" && link.id !== "tvShows"
+                                    ? false
+                                    : true;
                             return (
                                 <NavLink
-                                    key={link.id}
-                                    reloadDocument
+                                    onClick={(event) => {
+                                        if (isNavLinkDisabled) {
+                                            event.preventDefault();
+                                        }
+                                    }}
                                     to={link.path}
+                                    reloadDocument={true}
                                 >
-                                    <li className="poppins text-white text-lg hover:text-[#9dadbc] ">
-                                        {link.title}
+                                    <li
+                                        onMouseEnter={() => {
+                                            setShowSubLinks(true);
+                                            setActiveLink(link.id);
+                                        }}
+                                        onMouseLeave={() =>
+                                            setShowSubLinks(false)
+                                        }
+                                        className="relative poppins text-white text-lg  "
+                                        key={link.id}
+                                    >
+                                        <h4 className="cursor-pointer py-1">
+                                            {link.title}
+                                        </h4>
+                                        <ul
+                                            className={`
+                                        ${!isLinkActive && "hidden"}
+                                        ${
+                                            !showSubLinks && "hidden"
+                                        } z-[5] absolute w-fit left-0 right-0 mx-auto  flex flex-col gap-[2px] top-full bg-bgMain py-3 rounded-[5px] ${
+                                                link.id !== "movies" &&
+                                                link.id !== "tvShows" &&
+                                                "hidden"
+                                            }`}
+                                        >
+                                            {link.subPage?.map((subLink) => {
+                                                return (
+                                                    <NavLink
+                                                        reloadDocument={true}
+                                                        to={subLink.path}
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                        }}
+                                                    >
+                                                        <li
+                                                            key={link.id}
+                                                            className="  px-5  whitespace-nowrap relative poppins text-white text-lg hover:text-[#ffffff7a] cursor-pointer"
+                                                        >
+                                                            {subLink?.title}
+                                                        </li>
+                                                    </NavLink>
+                                                );
+                                            })}
+                                        </ul>
                                     </li>
                                 </NavLink>
                             );
@@ -191,14 +296,65 @@ const Navbar = () => {
                         </div>
 
                         {navbarLinks.map((link) => {
+                            const isLinkActive = activeLink === link.id;
+                            const isNavLinkDisabled =
+                                link.id !== "movies" && link.id !== "tvShows"
+                                    ? false
+                                    : true;
                             return (
                                 <NavLink
-                                    key={link.id}
-                                    reloadDocument
+                                    onClick={(event) => {
+                                        if (isNavLinkDisabled) {
+                                            event.preventDefault();
+                                        }
+                                    }}
                                     to={link.path}
+                                    reloadDocument={true}
                                 >
-                                    <li className="poppins text-white text-lg hover:text-[#9dadbc] ">
-                                        {link.title}
+                                    <li
+                                        onClick={() => {
+                                            setShowSubLinks(true);
+                                            setActiveLink(link.id);
+                                        }}
+                                        onMouseLeave={() =>
+                                            setShowSubLinks(false)
+                                        }
+                                        className="relative poppins text-white text-lg  "
+                                        key={link.id}
+                                    >
+                                        <h4 className="cursor-pointer py-1">
+                                            {link.title}
+                                        </h4>
+                                        <ul
+                                            className={`
+                                        ${!isLinkActive && "hidden"}
+                                        ${
+                                            !showSubLinks && "hidden"
+                                        } z-[5] absolute w-fit left-0 right-0 mx-auto flex flex-col gap-3 top-full bg-bgMain py-3 rounded-[5px] ${
+                                                link.id !== "movies" &&
+                                                link.id !== "tvShows" &&
+                                                "hidden"
+                                            }`}
+                                        >
+                                            {link.subPage?.map((subLink) => {
+                                                return (
+                                                    <NavLink
+                                                        reloadDocument={true}
+                                                        to={subLink.path}
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                        }}
+                                                    >
+                                                        <li
+                                                            key={link.id}
+                                                            className="  px-5  whitespace-nowrap relative poppins text-white text-xl hover:text-[#ffffff7a] cursor-pointer"
+                                                        >
+                                                            {subLink?.title}
+                                                        </li>
+                                                    </NavLink>
+                                                );
+                                            })}
+                                        </ul>
                                     </li>
                                 </NavLink>
                             );
