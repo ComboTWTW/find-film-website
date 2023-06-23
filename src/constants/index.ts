@@ -45,5 +45,5 @@ export const styles = {
     authInput:
         "bg-transparent rounded-[5px] outline-none text-white poppins px-2 h-14 bg-opacity-30 borderStyle hover:duration-150 focus:bg-darkLighter focus:duration-150 focus:bg-opacity-50",
     filterInput:
-        "rounded-[5px] cursor-pointer focus:bg-opacity-75 py-2 px-2 border-white border-solid border-[1px] bg-darkLighter text-white",
+        "rounded-[5px] poppins cursor-pointer focus:bg-opacity-75 py-2 px-2 border-white border-solid border-[1px] bg-darkLighter text-white",
 };
