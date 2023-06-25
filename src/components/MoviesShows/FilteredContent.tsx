@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { filteredDataT } from "../../api/getFilters";
+import { noImgLong } from "../../assets";
 
 interface Props {
     filteredData: filteredDataT;
@@ -26,9 +27,13 @@ const FilteredContent = ({ filteredData }: Props) => {
                                 >
                                     <div className="flex flex-col gap-2">
                                         <img
-                                            src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
+                                            src={`${
+                                                film.poster_path === null
+                                                    ? noImgLong
+                                                    : `https://image.tmdb.org/t/p/w500${film.poster_path}`
+                                            }`}
                                             alt="FilmPoster"
-                                            className="rounded-[5px] "
+                                            className="rounded-[5px]"
                                         />
 
                                         <h3
