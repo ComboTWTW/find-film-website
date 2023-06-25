@@ -31,18 +31,25 @@ const MoviesShows = () => {
             : defaultPopular
     );
 
+    const [newFilterSets, setNewFilterSets] = useState<filterSetsT>(filterSets);
+
     const {
         data: dataFiltered,
         refetch: refetchFiltered,
         isSuccess: isSuccessFiltered,
     } = useQuery<filteredDataT>(
         ["getFiltered", location.pathname.split("/")[1], filterSets],
-        () => getFiltered(location.pathname.split("/")[1], filterSets)
+        () => getFiltered(location.pathname.split("/")[1], filterSets),
+        { enabled: false }
     );
 
     useEffect(() => {
         refetchFiltered();
     }, []);
+
+    useEffect(() => {
+        refetchFiltered();
+    }, [filterSets]);
 
     return (
         <div className="w-full flex justify-center">
@@ -55,11 +62,20 @@ const MoviesShows = () => {
                 </h1>
 
                 <div className="flex flex-col md:flex-row mt-7 gap-5 md:gap-6">
-                    <div className="bg-darkLighter rounded-[5px] md:min-w-[280px] h-fit">
+                    <div className=" md:max-w-[280px] md:min-w-[280px] h-fit">
                         <Filters
-                            filterSets={filterSets}
-                            setFilterSets={setFilterSets}
+                            filterSets={newFilterSets}
+                            setFilterSets={setNewFilterSets}
                         />
+
+                        <button
+                            onClick={() => {
+                                setFilterSets(newFilterSets);
+                            }}
+                            className="mt-3 py-2 w-full poppins text-white border-[1px] border-solid border-white rounded-full "
+                        >
+                            Search
+                        </button>
                     </div>
 
                     <div className="w-full  md:mt-0 flex flex-col">
