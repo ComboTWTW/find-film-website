@@ -62,9 +62,10 @@ const Genres = ({ setFilterSets, filterSets }: Props) => {
                                     "hidden"
                                 } ${
                                     focusedGenres !== null &&
-                                    focusedGenres.includes(genre.id) &&
-                                    "bg-white text-black"
-                                } p-2 md:px-3 md:py-[6px] bg-darkLighter  hover:md:opacity-70  text-xs poppins text-white rounded-full border-[1px] border-white border-solid`}
+                                    focusedGenres.includes(genre.id)
+                                        ? "bg-white text-black"
+                                        : "bg-darkLighter text-white"
+                                } p-2 md:px-3 md:py-[6px] bg-darkLighter  hover:md:opacity-70  text-xs poppins  rounded-full border-[1px] border-white border-solid`}
                             >
                                 {genre.name}
                             </button>
