@@ -6,6 +6,7 @@ import { getFiltered, filteredDataT } from "../../api/getFilters";
 import { filterSetsT } from "../../pages/MoviesShows";
 import Genres from "./Genres";
 import DateFilter from "./DateFilter";
+import IncludeAdult from "./IncludeAdult";
 
 interface Props {
     filterSets: filterSetsT;
@@ -45,6 +46,10 @@ const Filters = ({ filterSets, setFilterSets }: Props) => {
                 <SortBy setFilterSets={setFilterSets} filterSets={filterSets} />
                 <Genres setFilterSets={setFilterSets} filterSets={filterSets} />
                 <DateFilter
+                    setFilterSets={setFilterSets}
+                    filterSets={filterSets}
+                />
+                <IncludeAdult
                     setFilterSets={setFilterSets}
                     filterSets={filterSets}
                 />
