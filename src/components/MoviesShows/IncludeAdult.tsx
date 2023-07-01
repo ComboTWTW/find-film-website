@@ -8,7 +8,7 @@ interface Props {
 }
 
 const IncludeAdult = ({ setFilterSets, filterSets }: Props) => {
-    const [isInclude, setIsInclude] = useState<boolean>(true);
+    const [isInclude, setIsInclude] = useState<boolean>(false);
 
     useEffect(() => {
         setFilterSets({
