@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { getFiltered, filteredDataT } from "../api/getFilters";
 import FilteredContent from "../components/MoviesShows/FilteredContent";
-
+import Pagination from "@mui/material/Pagination";
+import "../constants/globalPaginationStyles.css";
 export type filterSetsT = {
     sortBy: string;
     page: string;
@@ -49,7 +50,19 @@ const MoviesShows = () => {
 
     useEffect(() => {
         refetchFiltered();
+        console.log(dataFiltered);
     }, [filterSets]);
+
+    const handlePageChange = (
+        event: React.ChangeEvent<unknown>,
+        value: number
+    ) => {
+        window.scrollTo({
+            top: 0,
+            behavior: "instant",
+        });
+        setFilterSets({ ...filterSets, page: `&page=${value}` });
+    };
 
     return (
         <div className="w-full flex justify-center">
@@ -71,6 +84,10 @@ const MoviesShows = () => {
                         <button
                             onClick={() => {
                                 setFilterSets(newFilterSets);
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: "instant",
+                                });
                             }}
                             className="mt-3 py-2 w-full poppins text-white border-[1px] border-solid border-white rounded-full "
                         >
@@ -82,7 +99,22 @@ const MoviesShows = () => {
                         {!isSuccessFiltered ? (
                             <CircularProgress size={25} />
                         ) : (
-                            <FilteredContent filteredData={dataFiltered} />
+                            <div>
+                                <FilteredContent filteredData={dataFiltered} />
+                                <div className="w-full flex justify-center mt-3">
+                                    <Pagination
+                                        count={
+                                            dataFiltered.total_pages > 500
+                                                ? 500
+                                                : dataFiltered.total_pages
+                                        }
+                                        page={dataFiltered.page}
+                                        shape="rounded"
+                                        color="primary"
+                                        onChange={handlePageChange}
+                                    />
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>

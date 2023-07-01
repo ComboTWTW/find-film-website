@@ -1,0 +1,17 @@
+.MuiPagination-ul > li > *{
+  height: 40px;
+  width: 40px;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  border-radius: 100%;
+}
+
+.MuiPagination-ul > li > button:hover{
+  background-color: rgb(59, 58, 58);
+  ;
+}
+
+
+

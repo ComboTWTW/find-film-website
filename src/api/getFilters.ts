@@ -32,4 +32,6 @@ export type filteredDataT = {
         name: string;
         first_air_date: string;
     }[];
+    total_pages: number;
+    tota_results: number;
 };
