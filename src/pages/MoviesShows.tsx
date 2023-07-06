@@ -14,26 +14,27 @@ export type filterSetsT = {
 };
 
 const MoviesShows = () => {
+    /* Default Sets for TopRated Page */
     const defaultTopRated = {
         page: "&page=1",
         withoutGenres: "&without_genres=99,10755",
         sortBy: "&sort_by=vote_average.desc",
         voteCount: "&vote_count.gte=200",
     };
-
+    /* Default Sets for Popular Page */
     const defaultPopular = {
         page: "&page=1",
         sortBy: "&sort_by=popularity.desc",
     };
-
+    /* Setting FilterSets based on url */
     const [filterSets, setFilterSets] = useState<filterSetsT>(
         location.pathname.split("/")[2] === "top-rated"
             ? defaultTopRated
             : defaultPopular
     );
-
+    /* New State for preventing auto refetching after main sets state was changed */
     const [newFilterSets, setNewFilterSets] = useState<filterSetsT>(filterSets);
-
+    /* API */
     const {
         data: dataFiltered,
         refetch: refetchFiltered,
@@ -43,16 +44,16 @@ const MoviesShows = () => {
         () => getFiltered(location.pathname.split("/")[1], filterSets),
         { enabled: false }
     );
-
+    /* UseEffects for Refetching */
     useEffect(() => {
         refetchFiltered();
     }, []);
 
     useEffect(() => {
         refetchFiltered();
-        console.log(dataFiltered);
     }, [filterSets]);
 
+    /* Pagination Logic */
     const handlePageChange = (
         event: React.ChangeEvent<unknown>,
         value: number
@@ -67,6 +68,7 @@ const MoviesShows = () => {
     return (
         <div className="w-full flex justify-center">
             <div className="max-w-[1300px] px-4 w-full flex flex-col ">
+                {/* Header */}
                 <h1 className="first-letter:uppercase capitalize poppins font-semibold text-white text-3xl md:text-4xl mt-5">
                     {location.pathname.split("/")[2].replace("-", " ")}{" "}
                     {location.pathname.split("/")[1].replace("-", " ") === "tv"
@@ -75,12 +77,13 @@ const MoviesShows = () => {
                 </h1>
 
                 <div className="flex flex-col md:flex-row mt-7 gap-5 md:gap-6">
+                    {/* Left Block with Filters */}
                     <div className=" md:max-w-[280px] md:min-w-[280px] h-fit">
                         <Filters
                             filterSets={newFilterSets}
                             setFilterSets={setNewFilterSets}
                         />
-
+                        {/* Search Button */}
                         <button
                             onClick={() => {
                                 setFilterSets(newFilterSets);
@@ -94,13 +97,18 @@ const MoviesShows = () => {
                             Search
                         </button>
                     </div>
+                    {/* End of the Left Block */}
 
+                    {/* Right Block with Main Content and Pagination */}
                     <div className="w-full  md:mt-0 flex flex-col">
                         {!isSuccessFiltered ? (
+                            /* Spinner for Loading */
                             <CircularProgress size={25} />
                         ) : (
                             <div>
+                                {/* Main Contnet Component */}
                                 <FilteredContent filteredData={dataFiltered} />
+                                {/* Pagination */}
                                 <div className="w-full flex justify-center mt-3">
                                     <Pagination
                                         count={
@@ -117,6 +125,7 @@ const MoviesShows = () => {
                             </div>
                         )}
                     </div>
+                    {/* End of the Right Block */}
                 </div>
             </div>
         </div>

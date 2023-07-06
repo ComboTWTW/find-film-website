@@ -45,7 +45,7 @@ const Movie = () => {
                 <div className="w-full max-w-[1300px] px-4 flex flex-col  items-center md:justify-center">
                     {/* Hero */}
                     <MediaHero media={media} dataFilm={dataFilm} />
-                    {/* Descr for sm */}
+                    {/* Description for sm */}
                     <div className="md:hidden mt-5">
                         <MediaDescr media={media} dataFilm={dataFilm} />
                     </div>
