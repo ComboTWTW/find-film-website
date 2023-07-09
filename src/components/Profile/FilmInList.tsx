@@ -94,11 +94,16 @@ const FilmInList = ({ film, setNewLists, newLists, currentList }: Props) => {
                     target="_blank"
                 >
                     <div className="flex flex-col gap-2">
-                        <img
-                            src={posterImage(dataFilm.poster_path)}
-                            alt="FilmPoster"
-                            className="rounded-[5px] "
-                        />
+                        <div className="relative">
+                            {/* Image */}
+                            <div className="pb-[150%]">
+                                <img
+                                    src={posterImage(dataFilm.poster_path)}
+                                    alt="FilmPoster"
+                                    className="rounded-[5px] absolute inset-0 w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
 
                         <h3
                             title={
