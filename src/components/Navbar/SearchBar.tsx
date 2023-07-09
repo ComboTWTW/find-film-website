@@ -113,7 +113,7 @@ const SearchBar = () => {
                         dataObj.length === 0 && "hidden"
                     }`}
                 >
-                    <SearchPlate dataObj={dataObj} />
+                    <SearchPlate dataObj={dataObj} searchInput={searchInput} />
                 </div>
             )}
         </div>

@@ -16,6 +16,7 @@ import Movie from "./pages/Movie";
 import Profile from "./pages/Profile";
 import Person from "./pages/Person";
 import MoviesShows from "./pages/MoviesShows";
+import Search from "./pages/Search";
 
 const App = () => {
     const queryClient = new QueryClient({
@@ -50,6 +51,7 @@ const App = () => {
                 <div className="overflow-hidden w-full bg-bgMain min-h-screen">
                     <Navbar />
                     <Routes>
+                        {/* NavBar Pages */}
                         <Route path={"/"} element={<Home />} />
                         <Route
                             path={"/movie/popular"}
@@ -77,6 +79,8 @@ const App = () => {
                         <Route path={"/movie/?"} element={<Movie />} />
                         <Route path={"/tv/?"} element={<Movie />} />
                         <Route path={"/person/?"} element={<Person />} />
+                        <Route path={"/search/?"} element={<Search />} />
+
                         {/* Private (Show only if NOT logged in) */}
                         <Route
                             path={"/login"}

@@ -9,6 +9,10 @@ import { filmDataT } from "../../api/getFilm";
 
 interface Props {
     dataObj: filmT[];
+    searchInput: {
+        input: string;
+        submit: boolean;
+    };
 }
 
 type filmT = {
@@ -23,7 +27,7 @@ type filmT = {
     id: number;
 };
 
-const SearchPlate = ({ dataObj }: Props) => {
+const SearchPlate = ({ dataObj, searchInput }: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const cacheImages = async (imgArr: string[]) => {
@@ -90,11 +94,13 @@ const SearchPlate = ({ dataObj }: Props) => {
                                     </Link>
                                 );
                             })}
-                            <h3
-                                className={`w-full  text-center overflow-hidden poppins py-1 tracking-wider text-white`}
+                            <Link
+                                reloadDocument={true}
+                                to={`/search/?query=${searchInput.input}`}
+                                className="w-full  text-center overflow-hidden poppins py-1 tracking-wider text-white"
                             >
                                 Show more...
-                            </h3>
+                            </Link>
                         </ul>
                     </div>
                 </div>
