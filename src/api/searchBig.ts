@@ -2,7 +2,7 @@ const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 export const searchBig = (input: string, media: string, page: number) => {
     const link = `https://api.themoviedb.org/3/search/${media}?api_key=${apiKey}&language=en-US&page=1&query=${input}&page=${page}`;
-    console.log(link);
+
     return fetch(link)
         .then((res) => res.json())
         .then((data) => data)
