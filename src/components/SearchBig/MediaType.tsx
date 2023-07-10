@@ -25,13 +25,11 @@ const MediaType = ({ searchSets, setSearchSets, dataSearch }: Props) => {
     ];
 
     const handleColor = (e: React.MouseEvent<HTMLButtonElement>): boolean => {
-        console.log(e.currentTarget.value === searchSets.media ? true : false);
         return e.currentTarget.value === searchSets.media ? true : false;
     };
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         setSearchSets({ ...searchSets, media: e.currentTarget.value });
-        console.log(e.currentTarget.value + " " + searchSets.media);
     };
 
     return (

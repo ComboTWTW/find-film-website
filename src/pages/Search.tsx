@@ -11,6 +11,7 @@ import { useSearchParams } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import "../constants/globalPaginationStyles.css";
 import MediaType from "../components/SearchBig/MediaType";
+import Content from "../components/SearchBig/Content";
 
 export type searchSetsT = {
     media: string;
@@ -31,6 +32,7 @@ const Search = () => {
         data: dataSearch,
         refetch: refetchSearch,
         isSuccess: isSuccessSearch,
+        isFetched,
     } = useQuery<searchBigMovieT | searchBigPersonT | searchBigTvT>(
         ["getSeacrhBig"],
         () => searchBig(searchSets.query, searchSets.media, searchSets.page)
@@ -44,13 +46,12 @@ const Search = () => {
             top: 0,
             behavior: "instant",
         });
-        setSearchSets({ ...searchSets, page: searchSets.page + 1 });
+        setSearchSets({ ...searchSets, page: value });
     };
 
     useEffect(() => {
         refetchSearch();
-        isSuccessSearch && console.log(dataSearch);
-    }, []);
+    }, [searchSets]);
 
     return (
         <div className="w-full flex justify-center">
@@ -59,10 +60,13 @@ const Search = () => {
                     {/* Left Block  */}
                     <div className=" md:max-w-[280px] md:min-w-[280px] h-fit">
                         {/* Content Type Changing */}
-                        <MediaType
-                            searchSets={searchSets}
-                            setSearchSets={setSearchSets}
-                        />
+                        {isSuccessSearch && (
+                            <MediaType
+                                searchSets={searchSets}
+                                setSearchSets={setSearchSets}
+                                dataSearch={dataSearch}
+                            />
+                        )}
                     </div>
                     {/* End of the Left Block */}
 
@@ -74,7 +78,12 @@ const Search = () => {
                         ) : (
                             <div>
                                 {/* Main Contnet Component */}
-                                <div className=""></div>
+                                {isFetched && (
+                                    <Content
+                                        dataSearch={dataSearch}
+                                        searchSets={searchSets}
+                                    />
+                                )}
                                 {/* Pagination */}
                                 <div className="w-full flex justify-center mt-3">
                                     <Pagination
