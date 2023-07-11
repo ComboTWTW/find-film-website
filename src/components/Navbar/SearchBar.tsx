@@ -31,6 +31,7 @@ const SearchBar = () => {
 
     /* State for Dropping Search Plate Visibility */
     const [plateToggle, setPlateToggle] = useState<boolean>(false);
+    const [enterClicked, setEnterClicked] = useState<boolean>(false);
     const plateWindow = useRef<any>();
     useOnClickOutside(plateWindow, () => setPlateToggle(true));
 
@@ -52,7 +53,7 @@ const SearchBar = () => {
 
     const handleSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSearchInput({ ...searchInput, submit: true });
+        setEnterClicked(true);
     };
 
     const { isSuccess, data, refetch } = useQuery(["search"], () =>
@@ -113,7 +114,11 @@ const SearchBar = () => {
                         dataObj.length === 0 && "hidden"
                     }`}
                 >
-                    <SearchPlate dataObj={dataObj} searchInput={searchInput} />
+                    <SearchPlate
+                        dataObj={dataObj}
+                        searchInput={searchInput}
+                        enterClicked={enterClicked}
+                    />
                 </div>
             )}
         </div>
