@@ -5,6 +5,7 @@ import SearchPlate from "./SearchPlate";
 import { useQuery } from "react-query";
 import { search } from "../../api/search";
 import { timer } from "../../functions/timer";
+import { useNavigate } from "react-router-dom";
 
 type searchInput = {
     input: string;
@@ -23,15 +24,17 @@ type filmT = {
 };
 
 const SearchBar = () => {
+    const navigate = useNavigate();
+
     /* State for information within searchBar */
     const [searchInput, setSearchInput] = useState<searchInput>({
         input: "",
         submit: false,
     });
 
-    /* State for Dropping Search Plate Visibility */
+    /* State for Changing Search Plate Visibility */
     const [plateToggle, setPlateToggle] = useState<boolean>(false);
-    const [enterClicked, setEnterClicked] = useState<boolean>(false);
+
     const plateWindow = useRef<any>();
     useOnClickOutside(plateWindow, () => setPlateToggle(true));
 
@@ -53,7 +56,10 @@ const SearchBar = () => {
 
     const handleSubmitClick = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setEnterClicked(true);
+        if (searchInput.input !== "") {
+            navigate(`/search/?query=${searchInput.input}`);
+            window.location.reload();
+        }
     };
 
     const { isSuccess, data, refetch } = useQuery(["search"], () =>
@@ -61,8 +67,6 @@ const SearchBar = () => {
     );
 
     const [show, setShow] = useState<boolean>(false);
-    let input = searchInput.input;
-
     useEffect(() => {
         const waiter = async () => {
             setShow(false);
@@ -70,7 +74,7 @@ const SearchBar = () => {
             setShow(true);
         };
         waiter();
-    }, [input]);
+    }, [searchInput.input]);
 
     useEffect(() => {
         let newData: any = data;
@@ -114,11 +118,7 @@ const SearchBar = () => {
                         dataObj.length === 0 && "hidden"
                     }`}
                 >
-                    <SearchPlate
-                        dataObj={dataObj}
-                        searchInput={searchInput}
-                        enterClicked={enterClicked}
-                    />
+                    <SearchPlate dataObj={dataObj} searchInput={searchInput} />
                 </div>
             )}
         </div>

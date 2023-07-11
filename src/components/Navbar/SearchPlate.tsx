@@ -13,7 +13,6 @@ interface Props {
         input: string;
         submit: boolean;
     };
-    enterClicked: boolean;
 }
 
 type filmT = {
@@ -28,11 +27,7 @@ type filmT = {
     id: number;
 };
 
-const SearchPlate = ({ dataObj, searchInput, enterClicked }: Props) => {
-    useEffect(() => {
-        enterClicked && document.getElementById("showMore")?.click();
-    }, [enterClicked]);
-
+const SearchPlate = ({ dataObj, searchInput }: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const cacheImages = async (imgArr: string[]) => {
@@ -101,7 +96,6 @@ const SearchPlate = ({ dataObj, searchInput, enterClicked }: Props) => {
                             })}
                             <Link
                                 reloadDocument={true}
-                                id="showMore"
                                 to={`/search/?query=${searchInput.input}`}
                                 className="w-full  text-center overflow-hidden poppins py-1 tracking-wider text-white"
                             >
