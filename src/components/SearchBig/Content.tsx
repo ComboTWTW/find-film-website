@@ -38,10 +38,16 @@ const Content = ({ dataSearch, searchSets }: Props) => {
     };
 
     const getDate = (film: any) => {
+        console.log(searchSets.media);
         if (searchSets.media === "movie") {
-            return film.title !== undefined && film.release_date.slice(0, 4);
+            return (
+                film.release_date !== undefined && film.release_date.slice(0, 4)
+            );
         } else {
-            return film.name !== undefined && film.first_air_date.slice(0, 4);
+            return (
+                film.first_air_date !== undefined &&
+                film.first_air_date.slice(0, 4)
+            );
         }
     };
 
