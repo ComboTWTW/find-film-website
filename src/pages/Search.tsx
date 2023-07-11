@@ -60,13 +60,11 @@ const Search = () => {
                     {/* Left Block  */}
                     <div className=" md:max-w-[280px] md:min-w-[280px] h-fit">
                         {/* Content Type Changing */}
-                        {isSuccessSearch && (
-                            <MediaType
-                                searchSets={searchSets}
-                                setSearchSets={setSearchSets}
-                                dataSearch={dataSearch}
-                            />
-                        )}
+
+                        <MediaType
+                            searchSets={searchSets}
+                            setSearchSets={setSearchSets}
+                        />
                     </div>
                     {/* End of the Left Block */}
 

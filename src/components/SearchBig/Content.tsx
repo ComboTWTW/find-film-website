@@ -38,7 +38,6 @@ const Content = ({ dataSearch, searchSets }: Props) => {
     };
 
     const getDate = (film: any) => {
-        console.log(searchSets.media);
         if (searchSets.media === "movie") {
             return (
                 film.release_date !== undefined && film.release_date.slice(0, 4)

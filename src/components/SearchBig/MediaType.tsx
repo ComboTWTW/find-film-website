@@ -1,19 +1,13 @@
 import { useState, useEffect } from "react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { searchSetsT } from "../../pages/Search";
-import {
-    searchBigMovieT,
-    searchBigPersonT,
-    searchBigTvT,
-} from "../../api/searchBig";
 
 interface Props {
     searchSets: searchSetsT;
     setSearchSets: Function;
-    dataSearch: searchBigMovieT | searchBigPersonT | searchBigTvT;
 }
 
-const MediaType = ({ searchSets, setSearchSets, dataSearch }: Props) => {
+const MediaType = ({ searchSets, setSearchSets }: Props) => {
     const [toggleFilters, setToggleFilters] = useState<boolean>(true);
 
     type setsT = { name: string; value: string };
