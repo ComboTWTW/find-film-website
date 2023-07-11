@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 import Person from "./pages/Person";
 import MoviesShows from "./pages/MoviesShows";
 import Search from "./pages/Search";
+import People from "./pages/People";
 
 const App = () => {
     const queryClient = new QueryClient({
@@ -66,10 +67,7 @@ const App = () => {
                             path={"/tv/top-rated"}
                             element={<MoviesShows />}
                         />
-                        <Route
-                            path={"/people"}
-                            element={<h1 className="text-white">people</h1>}
-                        />
+                        <Route path={"/people"} element={<People />} />
                         <Route
                             path={"/about"}
                             element={<h1 className="text-white">about</h1>}
