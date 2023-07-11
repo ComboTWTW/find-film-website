@@ -31,6 +31,7 @@ const Search = () => {
     const {
         data: dataSearch,
         refetch: refetchSearch,
+        isRefetching,
         isSuccess: isSuccessSearch,
         isFetched,
     } = useQuery<searchBigMovieT | searchBigPersonT | searchBigTvT>(
@@ -50,8 +51,13 @@ const Search = () => {
     };
 
     useEffect(() => {
+        setSearchSets({ ...searchSets, page: 1 });
+        searchSets.page === 1 && refetchSearch();
+    }, [searchSets.media]);
+
+    useEffect(() => {
         refetchSearch();
-    }, [searchSets]);
+    }, [searchSets.page]);
 
     return (
         <div className="w-full flex justify-center">
@@ -70,10 +76,11 @@ const Search = () => {
 
                     {/* Right Block with Main Content and Pagination */}
                     <div className="w-full  md:mt-0 flex flex-col">
-                        {!isSuccessSearch ? (
+                        {isRefetching && (
                             /* Spinner for Loading */
                             <CircularProgress size={25} />
-                        ) : (
+                        )}{" "}
+                        {isSuccessSearch && !isRefetching && (
                             <div>
                                 {/* Main Contnet Component */}
                                 {isFetched && (

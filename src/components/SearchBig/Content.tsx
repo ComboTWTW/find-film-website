@@ -14,6 +14,10 @@ interface Props {
 }
 
 const Content = ({ dataSearch, searchSets }: Props) => {
+    useEffect(() => {
+        console.log(searchSets.page);
+    }, [searchSets.page]);
+
     const getImage = (film: any): string => {
         if (searchSets.media === "person") {
             if (film.profile_path === null) {
