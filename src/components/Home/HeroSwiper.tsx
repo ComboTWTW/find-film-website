@@ -63,7 +63,7 @@ const HeroSwiper = () => {
                             },
                         },
                         768: {
-                            slidesPerView: 2,
+                            slidesPerView: 3,
                             navigation: {
                                 nextEl: ".image-swiper-button-next",
                                 prevEl: ".image-swiper-button-prev",
@@ -71,7 +71,7 @@ const HeroSwiper = () => {
                             },
                         },
                     }}
-                    className="md:min-w-[115vw]"
+                    className="md:min-w-[180vw] "
                 >
                     {isSuccessPopular &&
                         dataPopular?.results
