@@ -82,6 +82,13 @@ const Search = () => {
                         )}{" "}
                         {isSuccessSearch && !isRefetching && (
                             <div>
+                                <h1 className="first-letter:uppercase capitalize poppins font-semibold text-white text-2xl md:text-[35px] mb-3 md:mb-5">
+                                    {searchSets.media === "movie"
+                                        ? "Movies"
+                                        : searchSets.media === "person"
+                                        ? "People"
+                                        : "TV Shows"}
+                                </h1>
                                 {/* Main Contnet Component */}
                                 {isFetched && (
                                     <Content

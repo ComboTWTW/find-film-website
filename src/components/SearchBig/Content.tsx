@@ -55,7 +55,7 @@ const Content = ({ dataSearch, searchSets }: Props) => {
     };
 
     return (
-        <ul className="w-full grid grid-cols-2 profileMd:grid-cols-3 lg:grid-cols-5 gap-6 gap-y-6 ">
+        <ul className="w-full grid grid-cols-2 profileMd:grid-cols-3 lg:grid-cols-5 gap-5 gap-y-6 ">
             {dataSearch?.results.map((film: any) => {
                 return (
                     <NavLink
