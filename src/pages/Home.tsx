@@ -1,13 +1,15 @@
-import HeroSwiper from "../components/Home/HeroSwiper"
-
+import HeroSwiper from "../components/Home/HeroSwiper";
+import WhatPopular from "../components/Home/WhatPopular";
 
 const Home = () => {
+    return (
+        <div className="w-full relative flex flex-col items-center">
+            <HeroSwiper />
+            <div className="max-w-[1300px] px-4 w-full flex flex-col mb-10">
+                <WhatPopular />
+            </div>
+        </div>
+    );
+};
 
-  return (
-    <div className="w-full relative flex justify-center">
-      <HeroSwiper />
-    </div>
-  )
-}
-
-export default Home
+export default Home;
