@@ -26,7 +26,7 @@ const WhatPopular = () => {
 
     return (
         <div className="w-full flex flex-col mt-6 ">
-            <h2 className="poppins text-white text-3xl lg:text-4xl font-semibold">
+            <h2 className="poppins text-white text-3xl lg:text-4xl font-semibold md:mb-1 xl:mb-[6px]">
                 What's Popular
             </h2>
 

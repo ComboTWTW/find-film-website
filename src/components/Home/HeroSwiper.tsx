@@ -69,9 +69,13 @@ const HeroSwiper = () => {
                                 prevEl: ".image-swiper-button-prev",
                                 enabled: true,
                             },
+                            autoplay: {
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            },
                         },
                     }}
-                    className="md:min-w-[180vw] "
+                    className="md:min-w-[180vw] xl:min-w-[150vw] "
                 >
                     {isSuccessPopular &&
                         dataPopular?.results
