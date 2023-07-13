@@ -1,40 +1,49 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { getTrendingTV, trendingTVT } from "../../api/getTrendingTV";
+import {
+    getUpcomingList,
+    upcomingListT,
+} from "../../../api/getUpcomingTrailers";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import "../../index.css";
-import { NavLink } from "react-router-dom";
-import { noImgLong } from "../../assets";
+import "../../../index.css";
+import VideoSlide from "./VideoSlide";
+import YouTubeVideo from "../../Media/YouTubeVideo";
 
-const TrendingTV = () => {
+const UpcomingTrailers = () => {
+    /* API reauest to get a list of upcoming movies */
     const {
-        data: dataTrendingTV,
-        refetch: refetchTrendingTV,
-        isSuccess: isSuccessTrendingTV,
-    } = useQuery<trendingTVT>(["getTrendingTV"], () => getTrendingTV());
+        data: dataUpcoming,
+        refetch: refetchUpcoming,
+        isSuccess: isSuccessUpcoming,
+    } = useQuery<upcomingListT>(["getUpcomingList"], () => getUpcomingList());
 
     useEffect(() => {
-        refetchTrendingTV();
+        refetchUpcoming();
     }, []);
-
+    /* Navigation for Slider */
     const [showNav, setShowNav] = useState<boolean>(false);
+    /* States for Video (YouTubeVideo component should be outside of the Slider or it desn't work) */
+    const [toggleVideo, setToggleVideo] = useState<boolean>(false);
+    const [videoId, setVideoId] = useState<string>("");
 
     return (
-        <div className="w-full flex flex-col mt-4 ">
+        <div className="w-full flex flex-col mt-10 ">
+            {/* Header */}
             <h2 className="poppins text-white text-3xl lg:text-4xl font-semibold md:mb-1 xl:mb-[6px]">
-                Trending TV Shows
+                Latest Trailers
             </h2>
 
-            {isSuccessTrendingTV && (
+            {isSuccessUpcoming && (
                 <div
                     onMouseEnter={() => setShowNav(true)}
                     onMouseLeave={() => setShowNav(false)}
                 >
+                    {/* Slider with Thumbnails */}
                     <Swiper
                         spaceBetween={13}
                         modules={[FreeMode, Navigation]}
@@ -48,7 +57,7 @@ const TrendingTV = () => {
                                 slidesPerView: 2,
                             },
                             500: {
-                                slidesPerView: 3,
+                                slidesPerView: 2,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -56,7 +65,7 @@ const TrendingTV = () => {
                                 },
                             },
                             800: {
-                                slidesPerView: 5,
+                                slidesPerView: 3,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -64,7 +73,7 @@ const TrendingTV = () => {
                                 },
                             },
                             968: {
-                                slidesPerView: 5,
+                                slidesPerView: 3,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -72,7 +81,7 @@ const TrendingTV = () => {
                                 },
                             },
                             1200: {
-                                slidesPerView: 6,
+                                slidesPerView: 3,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -81,58 +90,34 @@ const TrendingTV = () => {
                             },
                         }}
                     >
-                        {dataTrendingTV.results.map((series) => {
+                        {dataUpcoming.results.map((film) => {
                             return (
+                                /* Thumbnail Slide */
                                 <SwiperSlide
-                                    key={series.id}
+                                    key={film.id}
                                     className="h-auto relative"
                                 >
-                                    <NavLink
-                                        to={`/tv/?id=${
-                                            series.id
-                                        }&name=${series.name.replace(
-                                            / +/g,
-                                            "-"
-                                        )}`}
-                                        reloadDocument={true}
-                                        target="_blank"
-                                        className="flex flex-col h-full"
-                                    >
-                                        {/* TV Image */}
-                                        <div className="">
-                                            <img
-                                                src={`${
-                                                    series.poster_path === null
-                                                        ? noImgLong
-                                                        : `https://image.tmdb.org/t/p/w500${series.poster_path}`
-                                                }`}
-                                                alt="Poster"
-                                                className="rounded-t-[5px] "
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col bg-darkLighter  rounded-b-[5px]  px-2 py-1  h-full">
-                                            {/* TV Name */}
-                                            <h4
-                                                title={series.name}
-                                                className="twoLines text-ellipsis overflow-hidden  poppins text-white text-xl font-medium mt-1 leading-tight"
-                                            >
-                                                {series.name}
-                                            </h4>
-                                            {/* Year */}
-                                            <h4
-                                                className={`poppins text-white text-md `}
-                                            >
-                                                {series?.first_air_date.slice(
-                                                    0,
-                                                    4
-                                                )}
-                                            </h4>
-                                        </div>
-                                    </NavLink>
+                                    <div>
+                                        {/* Picture */}
+                                        <VideoSlide
+                                            id={film.id}
+                                            setToggleVideo={setToggleVideo}
+                                            setVideoId={setVideoId}
+                                            toggleVideo={toggleVideo}
+                                            videoId={videoId}
+                                        />
+                                        {/* Movie Name */}
+                                        <h4
+                                            title={film.title}
+                                            className="twoLines text-ellipsis overflow-hidden  poppins text-white text-2xl font-medium mt-2 leading-tight"
+                                        >
+                                            {film.title}
+                                        </h4>
+                                    </div>
                                 </SwiperSlide>
                             );
                         })}
+                        {/* Navigation Arrows */}
                         <div
                             className={`${
                                 showNav && "opacity-100 duration-200"
@@ -154,8 +139,15 @@ const TrendingTV = () => {
                     </Swiper>
                 </div>
             )}
+            {/* Video, that will appear when uses click on thumbnail */}
+            {toggleVideo && (
+                <YouTubeVideo
+                    setToggleVideo={setToggleVideo}
+                    videoId={videoId}
+                />
+            )}
         </div>
     );
 };
 
-export default TrendingTV;
+export default UpcomingTrailers;
