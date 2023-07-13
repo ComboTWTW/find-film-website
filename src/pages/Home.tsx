@@ -1,4 +1,5 @@
 import HeroSwiper from "../components/Home/HeroSwiper";
+import TrendingTV from "../components/Home/TrendingTV";
 import WhatPopular from "../components/Home/WhatPopular";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
             <HeroSwiper />
             <div className="max-w-[1300px] px-4 w-full flex flex-col mb-10">
                 <WhatPopular />
+                <TrendingTV />
             </div>
         </div>
     );
