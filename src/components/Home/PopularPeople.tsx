@@ -1,49 +1,41 @@
 import { useState, useEffect } from "react";
+import { getPeople, peopleT } from "../../api/getPeople";
 import { useQuery } from "react-query";
-import {
-    getUpcomingList,
-    upcomingListT,
-} from "../../../api/getUpcomingTrailers";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import "../../../index.css";
-import VideoSlide from "./VideoSlide";
-import YouTubeVideo from "../../Media/YouTubeVideo";
+import "../../index.css";
+import { NavLink } from "react-router-dom";
+import { noImgLong } from "../../assets";
 
-const UpcomingTrailers = () => {
-    /* API reauest to get a list of upcoming movies */
+const PopularPeople = () => {
     const {
-        data: dataUpcoming,
-        refetch: refetchUpcoming,
-        isSuccess: isSuccessUpcoming,
-    } = useQuery<upcomingListT>(["getUpcomingList"], () => getUpcomingList());
+        data: dataPeople,
+        refetch: refetchPeople,
+        isSuccess: isSuccessPeople,
+        isRefetching,
+    } = useQuery<peopleT>(["getPeople"], () => getPeople(1));
 
     useEffect(() => {
-        refetchUpcoming();
+        refetchPeople();
     }, []);
-    /* Navigation for Slider */
+
     const [showNav, setShowNav] = useState<boolean>(false);
-    /* States for Video (YouTubeVideo component should be outside of the Slider or it desn't work) */
-    const [toggleVideo, setToggleVideo] = useState<boolean>(false);
-    const [videoId, setVideoId] = useState<string>("");
 
     return (
-        <div className="w-full flex flex-col mt-10 ">
-            {/* Header */}
-            <h2 className="poppins text-white text-3xl lg:text-4xl font-semibold md:mb-1 xl:mb-[6px]">
-                Latest Trailers
+        <div className="w-full flex flex-col mt-9 md:mt-10 ">
+            <h2 className="poppins text-white text-3xl lg:text-4xl font-semibold  md:mb-1 xl:mb-[6px]">
+                People Popular Today
             </h2>
 
-            {isSuccessUpcoming && (
+            {isSuccessPeople && (
                 <div
                     onMouseEnter={() => setShowNav(true)}
                     onMouseLeave={() => setShowNav(false)}
                 >
-                    {/* Slider with Thumbnails */}
                     <Swiper
                         spaceBetween={13}
                         modules={[FreeMode, Navigation]}
@@ -54,13 +46,10 @@ const UpcomingTrailers = () => {
                         }}
                         breakpoints={{
                             320: {
-                                slidesPerView: 1,
-                                freeMode: {
-                                    enabled: false,
-                                },
+                                slidesPerView: 3,
                             },
                             500: {
-                                slidesPerView: 2,
+                                slidesPerView: 3,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -68,7 +57,7 @@ const UpcomingTrailers = () => {
                                 },
                             },
                             800: {
-                                slidesPerView: 3,
+                                slidesPerView: 5,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -76,7 +65,7 @@ const UpcomingTrailers = () => {
                                 },
                             },
                             968: {
-                                slidesPerView: 3,
+                                slidesPerView: 6,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -84,7 +73,7 @@ const UpcomingTrailers = () => {
                                 },
                             },
                             1200: {
-                                slidesPerView: 3,
+                                slidesPerView: 7,
                                 navigation: {
                                     nextEl: ".image-swiper-button-next",
                                     prevEl: ".image-swiper-button-prev",
@@ -93,34 +82,49 @@ const UpcomingTrailers = () => {
                             },
                         }}
                     >
-                        {dataUpcoming.results.map((film) => {
+                        {dataPeople.results.map((person) => {
                             return (
-                                /* Thumbnail Slide */
                                 <SwiperSlide
-                                    key={film.id}
+                                    key={person.id}
                                     className="h-auto relative"
                                 >
-                                    <div>
-                                        {/* Picture */}
-                                        <VideoSlide
-                                            id={film.id}
-                                            setToggleVideo={setToggleVideo}
-                                            setVideoId={setVideoId}
-                                            toggleVideo={toggleVideo}
-                                            videoId={videoId}
-                                        />
-                                        {/* Movie Name */}
-                                        <h4
-                                            title={film.title}
-                                            className="twoLines text-ellipsis overflow-hidden  poppins text-white text-xl md:text-2xl font-medium mt-2 leading-tight"
-                                        >
-                                            {film.title}
-                                        </h4>
-                                    </div>
+                                    <NavLink
+                                        to={`/person/?id=${person.id}&name=${person.name}`.replace(
+                                            /\s+/g,
+                                            "-"
+                                        )}
+                                        reloadDocument={true}
+                                        target="_blank"
+                                        className="flex flex-col h-full"
+                                    >
+                                        {/* Photo */}
+                                        <div className="relative">
+                                            {/* Image */}
+                                            <img
+                                                src={`${
+                                                    person.profile_path === null
+                                                        ? noImgLong
+                                                        : `https://image.tmdb.org/t/p/w500${person.profile_path}`
+                                                }`}
+                                                alt="PersonPhoto"
+                                                className="rounded-t-[5px] "
+                                            />
+                                        </div>
+
+                                        <div className="flex flex-col bg-darkLighter  rounded-b-[5px]  px-2 py-1  h-full">
+                                            {/* Person's Name */}
+                                            <h4
+                                                title={person.name}
+                                                className="twoLines text-ellipsis overflow-hidden  poppins text-white text-base md:text-lg font-medium mt-1 leading-tight"
+                                            >
+                                                {person.name}
+                                            </h4>
+                                        </div>
+                                    </NavLink>
                                 </SwiperSlide>
                             );
                         })}
-                        {/* Navigation Arrows */}
+                        {/* Navigation */}
                         <div
                             className={`${
                                 showNav && "opacity-100 duration-200"
@@ -142,15 +146,8 @@ const UpcomingTrailers = () => {
                     </Swiper>
                 </div>
             )}
-            {/* Video, that will appear when uses click on thumbnail */}
-            {toggleVideo && (
-                <YouTubeVideo
-                    setToggleVideo={setToggleVideo}
-                    videoId={videoId}
-                />
-            )}
         </div>
     );
 };
 
-export default UpcomingTrailers;
+export default PopularPeople;

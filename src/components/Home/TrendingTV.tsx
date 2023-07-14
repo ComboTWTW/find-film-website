@@ -25,7 +25,7 @@ const TrendingTV = () => {
     const [showNav, setShowNav] = useState<boolean>(false);
 
     return (
-        <div className="w-full flex flex-col mt-4 ">
+        <div className="w-full flex flex-col mt-3 md:mt-3 ">
             <h2 className="poppins text-white text-3xl lg:text-4xl font-semibold md:mb-1 xl:mb-[6px]">
                 Trending TV Shows
             </h2>

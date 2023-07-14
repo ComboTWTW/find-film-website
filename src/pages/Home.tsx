@@ -1,4 +1,5 @@
 import HeroSwiper from "../components/Home/HeroSwiper";
+import PopularPeople from "../components/Home/PopularPeople";
 import TrendingTV from "../components/Home/TrendingTV";
 import UpcomingTrailers from "../components/Home/UpcomingTrailers/UpcomingTrailers";
 import WhatPopular from "../components/Home/WhatPopular";
@@ -11,6 +12,7 @@ const Home = () => {
                 <WhatPopular />
                 <UpcomingTrailers />
                 <TrendingTV />
+                <PopularPeople />
             </div>
         </div>
     );
