@@ -6,6 +6,7 @@ import googleLogo from "./Google.png";
 import noImage from "./no-image.svg";
 import noImgLong from "./no-image.jpg";
 import noImgBackdrop from "./noImgBackdrop.png";
+import tmdbLogo from "./tmdbLogo.svg";
 
 export {
     navbarLogo,
@@ -16,4 +17,5 @@ export {
     noImage,
     noImgLong,
     noImgBackdrop,
+    tmdbLogo,
 };

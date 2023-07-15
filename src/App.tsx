@@ -18,6 +18,7 @@ import Person from "./pages/Person";
 import MoviesShows from "./pages/MoviesShows";
 import Search from "./pages/Search";
 import People from "./pages/People";
+import Footer from "./components/Footer";
 
 const App = () => {
     const queryClient = new QueryClient({
@@ -114,6 +115,7 @@ const App = () => {
 
                         <Route path={"*"} element={<h1>404 Not Found</h1>} />
                     </Routes>
+                    <Footer />
                 </div>
             </Router>
         </QueryClientProvider>

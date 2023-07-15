@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <div className="w-full relative flex flex-col items-center">
             <HeroSwiper />
-            <div className="max-w-[1300px] px-4 w-full flex flex-col mb-10">
+            <div className="max-w-[1300px] px-4 w-full flex flex-col">
                 <WhatPopular />
                 <UpcomingTrailers />
                 <TrendingTV />
