@@ -4,12 +4,13 @@ import {
     IoLogoGithub,
     IoLogoLinkedin,
     IoPersonCircleSharp,
+    IoMail,
 } from "react-icons/io5";
 
 const Footer = () => {
     return (
         <div className="w-full bg-darkLighter flex justify-center mt-10 md:mt-12">
-            <div className="max-w-[1300px] w-full flex flex-col items-start md:flex-row gap-14 md:justify-evenly md:items-start px-4 pt-8 pb-5">
+            <div className="max-w-[1300px] w-full flex flex-col items-start flex-wrap lg:flex-nowrap md:flex-row gap-14 md:justify-evenly md:items-start px-4 pt-8 pb-5">
                 {/* TMDB */}
                 <div className="flex flex-col gap-3 ">
                     <Link
@@ -30,7 +31,7 @@ const Footer = () => {
                     <h3 className="poppins text-2xl md:text-2xl tracking-wider  text-white font-semibold ">
                         Created by Arthur Mets
                     </h3>
-                    <ul className="w-full flex justify-evenly mt-3">
+                    <ul className="w-full flex  justify-between mt-3">
                         <li>
                             <Link
                                 title="Visit GitHub"
@@ -50,10 +51,15 @@ const Footer = () => {
                                 <IoPersonCircleSharp size={60} color="white" />
                             </Link>
                         </li>
+                        <li>
+                            <Link title="Email" to="mailto:">
+                                <IoMail size={60} color="white" />
+                            </Link>
+                        </li>
                     </ul>
                 </div>
                 {/* Navigation */}
-                <ul className="grid grid-cols-2 gap-x-3 md:gap-x-14 gap-y-3 text-lg">
+                <ul className="grid grid-cols-2 gap-x-10  lg:gap-x-14 gap-y-3 text-lg">
                     <NavLink to={`/`} reloadDocument={true}>
                         <li className="poppins text-white md:hover:text-bgMain">
                             Home
