@@ -82,7 +82,7 @@ const FilmInList = ({ film, setNewLists, newLists, currentList }: Props) => {
             {toggleRemove && (
                 <button
                     onClick={() => handleRemoveClick()}
-                    className="absolute rounded-full bg-white p-1 right-2 top-2"
+                    className="absolute rounded-full bg-white p-1 right-2 top-2 z-[2]"
                 >
                     <IoTrashBinSharp size={20} />
                 </button>
