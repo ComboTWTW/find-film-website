@@ -1,7 +1,9 @@
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 export const getCollection = (collectionID: string) => {
-    const link = `https://api.themoviedb.org/3/collection/${collectionID}?api_key=${apiKey}&language=en-US`;
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/collection/${collectionID}?api_key=${apiKey}&language=en-US`;
 
     return fetch(link)
         .then((res) => res.json())

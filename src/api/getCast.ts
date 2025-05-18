@@ -3,7 +3,9 @@ const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 export const getCast = (id: string, media: string) => {
     const mediaQuery = media === "tv" ? "aggregate_credits" : "credits";
 
-    const link = `https://api.themoviedb.org/3/${media}/${id}/${mediaQuery}?api_key=${apiKey}&language=en-US`;
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/${media}/${id}/${mediaQuery}?api_key=${apiKey}&language=en-US`;
 
     return fetch(link)
         .then((res) => res.json())

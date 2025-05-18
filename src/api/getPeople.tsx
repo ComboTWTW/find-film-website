@@ -1,7 +1,9 @@
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 export const getPeople = (page: number) => {
-    const link = `https://api.themoviedb.org/3/person/popular?api_key=${apiKey}&page=${page}`;
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/person/popular?api_key=${apiKey}&page=${page}`;
 
     return fetch(link)
         .then((res) => res.json())

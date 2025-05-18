@@ -2,7 +2,9 @@ const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 import { filterSetsT } from "../pages/MoviesShows";
 
 export const getFiltered = (media: string, filterSets: filterSetsT) => {
-    const link = `https://api.themoviedb.org/3/discover/${media}?api_key=${apiKey}&language=en-US${Object.values(
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/discover/${media}?api_key=${apiKey}&language=en-US${Object.values(
         filterSets
     ).join("")}`;
 

@@ -1,7 +1,9 @@
 const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 export const getFilm = (id: number | string, media: string) => {
-    const link = `https://api.themoviedb.org/3/${media}/${id}?api_key=${apiKey}`;
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/${media}/${id}?api_key=${apiKey}`;
 
     return fetch(link)
         .then((res) => {

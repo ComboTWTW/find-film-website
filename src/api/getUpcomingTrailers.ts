@@ -4,7 +4,9 @@ export const getUpcomingList = () => {
     const currYear = new Date().getFullYear();
     const nextYear = new Date().getFullYear() + 1;
 
-    const link = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${currYear}&release_date.lte=${nextYear}&api_key=${apiKey}`;
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${currYear}&release_date.lte=${nextYear}&api_key=${apiKey}`;
 
     return fetch(link)
         .then((res) => res.json())
@@ -13,7 +15,9 @@ export const getUpcomingList = () => {
 };
 
 export const getVideoList = (id: number) => {
-    const link = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}`;
+    const link = `http://${
+        import.meta.env.VITE_PROXY_IP_ADDRESS
+    }/movie/${id}/videos?api_key=${apiKey}`;
 
     return fetch(link)
         .then((res) => res.json())
